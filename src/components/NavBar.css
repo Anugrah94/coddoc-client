@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web');
+
+.navbar {
+  width: 100%;
+	height: 60vr;
+	background-color: lightcyan;
+	align-items: center;
+	display: flex;
+  justify-content: space-between;
+  font-family: 'Titillium Web', sans-serif;
+  border-bottom-color: rgb(108, 163, 160);
+  border-style: solid;
+  border-width: 1vr;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+
+.leftContent {
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.rightContent {
+  margin-right: 40px;
+  cursor: pointer;
+}
+
+.rightContent:hover {
+  color: blue;
+}
+
+.rightContentDropDown {
+  margin-right: 40px;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+}
+
+.rightContentDropDown:hover {
+  color: blue;
+}
+
+.dropdownContent {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 100px;
+  box-shadow: 0vr 8vr 16vr 0vr rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdownContent .item {
+  color: black;
+  margin-left: 10px;
+  display: block;
+}
+
+.dropdownContent .item:hover {
+  color: blue;
+}
+
+.rightContentDropDown:hover .dropdownContent {
+  display: block;
+}
+
+.link {
+  text-decoration: none;
+}

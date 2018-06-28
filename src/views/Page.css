@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
+.boxSnippet {
+  display: flex;
+  flex-direction: row;
+}
+
+.leftBox {
+  width: 5%;
+  margin-top: 10vr;
+}
+
+.midBox {
+  width: 2%;
+  border-style: solid;
+  border-width: 1vr;
+  border-left-color: rgb(108, 163, 160);
+  border-right-color: rgb(108, 163, 160);
+  border-bottom-color: transparent;
+  border-top-color: transparent;
+  background-color: lightcyan;
+}
+
+.smallBoxLeft {
+  width: 49%;
+  height: 375px;
+  display: block;
+  counter-reset: my-sec-counter;
+}
+
+.smallBoxRight {
+  width: 49%;
+  height: 375px;
+  background-color: black;
+}
+
+.bottomBox {
+  width: 98%;
+  margin: 10vr;
+  height: 150vr;
+}
+
+.forInput {
+  margin-left: 10px;
+  width: 100%;
+  font-family: 'Courier', Courier, monospace;
+  border: none;
+  outline: none;
+  resize: none;
+}
+
+.forInput::before {
+  counter-increment: my-sec-counter;
+  content: counter(my-sec-counter) ". ";
+}
+
+.forOutput {
+  margin-top: 10px;
+  margin-left: 10px;
+  width: 100%;
+  font-family: 'Courier', Courier, monospace;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: green;
+  resize: none;
+}
+
+.forDoc {
+  margin-top: 20px;
+  margin-left: 10px;
+  width: 100%;
+  font-family: 'Courier', Courier, monospace;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  resize: none;
+}
+
+.loginForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+  flex-direction: column;
+}
+
+.inputItem {
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 200px;
+}
+
+.buttonPress {
+  width: 225px;
+  height: 35px;
+  margin-top: 20px;
+  background-color: rgb(108, 163, 160);
+  color: antiquewhite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.buttonPress:hover {
+  background-color: rgb(48, 72, 88);
+}
+
+.signUpParrent {
+  font-size: 14px;
+}
+
+.signUpChild {
+  text-decoration: none;
+  font-size: 14px;
+  color: rgb(48, 72, 88);
+}
+
+.signUpChild:hover {
+  color: rgb(108, 163, 160);
+}
+
+.container {
+  margin: 15px;
+}
+
+.profile {
+  margin-bottom: 20px;
+  height: 300px;
+  text-align: center;
+}
+
+.name {
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.username {
+  font-family: 'Roboto Mono', monospace;
+}
+
+img {
+  width: 180px;
+  height: 180px;
+}
+
+.histContent {
+  width: 50%;
+}
+
+.history {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
