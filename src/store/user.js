@@ -1,19 +1,19 @@
 import { observable } from 'mobx';
 
 class User {
-  @observable loginStatus = true;
+  @observable loginStatus = false;
   @observable statusProfilePage = false;
   @observable statusLoginPage = false;
-  @observable user = {
-    fullname: 'Fitrul Islam',
-    username: 'fitrul31',
-  };
+  @observable user = {};
 
   logIn() {
     this.loginStatus = true;
+    this.statusLoginPage = false;
+    this.statusProfilePage = false;
   };
 
   logOut() {
+    localStorage.removeItem('token')
     this.loginStatus = false;
   };
 
@@ -29,6 +29,10 @@ class User {
     this.loginStatus = false;
     this.statusLoginPage = false;
     this.statusProfilePage = false;
+  }
+
+  addUser(user) {
+    this.user = user;
   }
 };
 

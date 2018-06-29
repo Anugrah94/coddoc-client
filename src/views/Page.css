@@ -37,7 +37,7 @@
 
 .bottomBox {
   width: 98%;
-  margin: 10vr;
+  margin: 25vr;
   height: 150vr;
 }
 
@@ -86,6 +86,13 @@
   flex-direction: column;
 }
 
+.insideLoginForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .inputItem {
   margin-bottom: 10px;
   padding: 10px;
@@ -95,12 +102,9 @@
 .buttonPress {
   width: 225px;
   height: 35px;
-  margin-top: 20px;
+  margin-top: 10px;
   background-color: rgb(108, 163, 160);
-  color: antiquewhite;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  color: white;
   cursor: pointer;
 }
 
@@ -153,5 +157,25 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.topBar {
+  display: flex;
+  flex-direction: row;
+  margin-left: 15px;
+  justify-content: center;
+}
+
+.buttonToConvert {
+  margin-right: 10px;
+  display: block;
+  cursor: pointer;
+  background-color: rgb(108, 163, 160);
+  padding: 5px;
+  color: white;
+}
+
+.buttonToConvert:hover {
+  background-color: rgb(103, 141, 139);
 }
 
