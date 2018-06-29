@@ -16,7 +16,13 @@ import userStore from '../store/user'
   }
 
   backToHome = () => {
-    this.props.props.history.push('/');
+    let token = localStorage.getItem('token')
+    if(token) {
+      userStore.logIn();
+      this.props.props.history.push('/');
+    } else {
+      this.props.props.history.push('/');
+    }
   }
 
   render() {
