@@ -13,7 +13,8 @@ export default class Register extends Component {
       full_name: '',
       username: '',
       email: '',
-      password: ''
+      password: '',
+      errMsg: ''
     };
   };
 
@@ -46,13 +47,22 @@ export default class Register extends Component {
     })
   }
 
+  setError = () => {
+    this.setState({
+      errMsg: 'salah nih'
+    })
+  }
+
   render() {
     return (
       <div>
         <NavBar />
         <div className="loginForm">
+          <div>
+            {this.state.errMsg}
+          </div>
           <Mutation mutation={ADD_NEW_USER}>
-              {(register, { data }) => (
+              {(register, { loading, error, data }) => (
                 <div>
                   <form onSubmit={e => this.handleSubmit(e, register)}
                     className="insideLoginForm">
@@ -89,13 +99,16 @@ export default class Register extends Component {
                     </button>
                   </form>
                   {
-                    data !== undefined && (
-                      userStore.addUser(data.register.user),
+                    data && (
                       localStorage.setItem('token', data.register.token),
                       userStore.logIn(),
                       this.props.history.push('/main')
                     )  
                   }
+                  {error && (
+                    () => this.setError(),
+                    console.log('bangsaaat gabisa gw keluarin')
+                  )}
                 </div>
               )}
           </Mutation>

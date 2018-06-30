@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import TextareaAutosize from 'react-autosize-textarea';
 // import brace from 'brace';
 import AceEditor from 'react-ace';
+import { Mutation } from 'react-apollo';
 
 import 'brace/mode/java';
 import 'brace/theme/github';
 
 import '../views/Page.css';
+
+import { pythonjs, functionDetection, scrapping } from '../store/convert'
 
 export default class Main extends Component {
   constructor() {
@@ -29,6 +32,12 @@ export default class Main extends Component {
       snippet: 'loading...',
       doc: 'loading...'
     })
+    let output = pythonjs(this.state.input)
+    let scrap = scrapping(this.state.input)
+    console.log(scrap)
+    this.setState({
+      snippet: output
+    })
   }
 
   render() {
@@ -40,29 +49,35 @@ export default class Main extends Component {
               <p
                 className="buttonToConvert"
                 onClick={() => this.convertData()}>
-                <i class="fas fa-play-circle"></i>
+                <i className="fas fa-play-circle"></i>
                 &nbsp;&nbsp;Convert
               </p>
             </div>
-            <AceEditor
-              className="forInput"
-              mode="javascript"
-              name="input"
-              onChange={this.getData}
-              fontSize={14}
-              showPrintMargin={true}
-              showGutter={true}
-              highlightActiveLine={true}
-              value={this.state.input}
-              height='330px'
-              width='620vr'
-              setOptions={{
-                enableBasicAutocompletion: false,
-                enableLiveAutocompletion: false,
-                enableSnippets: false,
-                showLineNumbers: true,
-                tabSize: 2,
-              }}/>
+            {/* <Mutation>
+              <div>
+                <form> */}
+                  <AceEditor
+                    className="forInput"
+                    mode="javascript"
+                    name="input"
+                    onChange={this.getData}
+                    fontSize={14}
+                    showPrintMargin={true}
+                    showGutter={true}
+                    highlightActiveLine={true}
+                    value={this.state.input}
+                    height='330px'
+                    width='620vr'
+                    setOptions={{
+                      enableBasicAutocompletion: false,
+                      enableLiveAutocompletion: false,
+                      enableSnippets: false,
+                      showLineNumbers: true,
+                      tabSize: 2,
+                    }}/>
+                {/* </form>
+              </div>
+            </Mutation> */}
           </div>
           <div className="midBox"></div>
           <div className="smallBoxRight">

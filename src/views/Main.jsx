@@ -46,9 +46,7 @@ export default class Main extends Component {
         <NavBar props={this.props}/>
         {
           userStore.loginStatus === true ?
-          <div>
-            Testing
-          </div> :
+          <SignedIn /> :
           <SignedOut />
         }
       </div>

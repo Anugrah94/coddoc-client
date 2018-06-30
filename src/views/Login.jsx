@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
+import { observer } from 'mobx-react';
 
 import NavBar from '../components/NavBar';
 import userStore from '../store/user';
 import { LOGIN_USER } from '../graphql/mutationType';
 
-export default class Login extends Component {
+@observer class Login extends Component {
   constructor() {
     super();
     this.state = {
       email: '',
       password: '',
-      visible: false,
     };
   };
 
@@ -23,6 +23,7 @@ export default class Login extends Component {
       this.props.history.push('/main')
     } else {
       userStore.wantLogin()
+      userStore.clearErrorLogin()
     }
   };
 
@@ -47,6 +48,11 @@ export default class Login extends Component {
       <div>
         <NavBar props={ this.props }/>
         <div className="loginForm">
+          <div>
+            <p>
+              {userStore.errorLogin}
+            </p>
+          </div>
           <Mutation mutation={LOGIN_USER}>
             { (login, { data }) => (
               <div>
@@ -72,10 +78,13 @@ export default class Login extends Component {
                 </form>
                 {
                   data !== undefined && (
-                    userStore.addUser(data.login.user),
-                    localStorage.setItem('token', data.login.token),
-                    userStore.logIn(),
-                    this.props.history.push('/main')
+                    data.login !== null ? (
+                      localStorage.setItem('token', data.login.token),
+                      userStore.logIn(),
+                      this.props.history.push('/main')
+                    ) : (
+                      userStore.setErrorLogin()
+                    )
                   )
                 }
               </div>
@@ -91,3 +100,6 @@ export default class Login extends Component {
     );
   };
 };
+
+
+export default Login
