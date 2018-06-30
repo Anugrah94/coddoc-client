@@ -11,7 +11,8 @@ export default class Login extends Component {
     super();
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      visible: false,
     };
   };
 
@@ -44,7 +45,7 @@ export default class Login extends Component {
   render() {
     return (
       <div>
-        <NavBar />
+        <NavBar props={ this.props }/>
         <div className="loginForm">
           <Mutation mutation={LOGIN_USER}>
             { (login, { data }) => (
@@ -75,7 +76,7 @@ export default class Login extends Component {
                     localStorage.setItem('token', data.login.token),
                     userStore.logIn(),
                     this.props.history.push('/main')
-                  )  
+                  )
                 }
               </div>
             )}

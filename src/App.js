@@ -6,7 +6,6 @@ import {
  }
 from 'react-router-dom';
 
-import userStore from './store/user'
 import Home from './views/Home';
 import Login from './views/Login';
 import Main from './views/Main';
@@ -16,12 +15,7 @@ import ErrorPage from './views/ErrorPage';
 
 class App extends Component {
   componentDidMount() {
-    let token = localStorage.getItem('token')
-    if(token) {
-      
-    } else {
-      
-    }
+
   }
 
   render() {
