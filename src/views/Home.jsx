@@ -20,14 +20,20 @@ export default class Home extends Component {
     return (
       <div>
         <NavBar props={this.props}/>
-        <div>
-          <Link to={'/main'}>
-            <button className="buttonPress">
-              <p className="signUpParrent">
-                Get started as guest
-              </p>
-            </button>
+        <div className="loginForm">
+          <Link className="link" to={'/main'}>
+            <div className="startedGuest">
+              Get started as guest
+            </div>
           </Link>
+          <div className="startedUser">
+              <div className="itemStarted">
+                Login
+              </div>
+              <div className="itemStarted">
+                Register
+              </div>
+            </div>
         </div>
       </div>
     );

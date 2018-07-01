@@ -29,13 +29,11 @@ import userStore from '../store/user'
     if(userStore.statusProfilePage === true) {
       return (
         <div className="navbar">
-          <div className="leftContent">
-            <p onClick={() => this.backToHome()}>CoddoC</p>
+          <div className="leftContent"  onClick={() => this.backToHome()}>
+            <img src="https://i.imgur.com/f0Y5Ssm.png" alt="logoNavbar" className="navbarLogo"/>
           </div>
-          <div className="rightContent">
-            <p
-              className="item"
-              onClick={() => this.logOut()}>
+          <div className="rightContent" onClick={() => this.logOut()}>
+            <p className="item">
               <i className="fas fa-sign-out-alt"></i>
               &nbsp;&nbsp;Logout
             </p>
@@ -45,20 +43,19 @@ import userStore from '../store/user'
     } else if(userStore.statusLoginPage === true) {
       return (
         <div className="navbar">
-          <div className="leftContent">
-            <p onClick={() => this.backToHome()}>CoddoC</p>
+          <div className="leftContent"  onClick={() => this.backToHome()}>
+            <img src="https://i.imgur.com/f0Y5Ssm.png" alt="logoNavbar" className="navbarLogo"/>
           </div>
         </div>
       );
     } else if(userStore.loginStatus === false) {
       return (
         <div className="navbar">
-          <div className="leftContent">
-            <p onClick={() => this.backToHome()}>CoddoC</p>
+          <div className="leftContent"  onClick={() => this.backToHome()}>
+            <img src="https://i.imgur.com/f0Y5Ssm.png" alt="logoNavbar" className="navbarLogo"/>
           </div>
-          <div className="rightContent">
-            <p
-              onClick={() => this.logIn()}>
+          <div className="rightContent" onClick={() => this.logIn()}>
+            <p>
               <i className="fas fa-sign-in-alt"></i>
               &nbsp;&nbsp;Login
             </p>
@@ -68,8 +65,8 @@ import userStore from '../store/user'
     } else {
       return (
         <div className="navbar">
-          <div className="leftContent">
-            <p onClick={() => this.backToHome()}>CoddoC</p>
+          <div className="leftContent" onClick={() => this.backToHome()}>
+            <img src="https://i.imgur.com/f0Y5Ssm.png" alt="logoNavbar" className="navbarLogo"/>
           </div>
           <div className="rightContentDropDown">
             <p><i className="fas fa-user-circle"></i>&nbsp;&nbsp;My Account</p>

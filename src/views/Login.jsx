@@ -53,6 +53,11 @@ import { LOGIN_USER } from '../graphql/mutationType';
               {userStore.errorLogin}
             </p>
           </div>
+          <div className="imgHor">
+            <img src="http://marcusandmartinus.com/wp-content/uploads/2014/03/58e91965eb97430e819064f5.png" className="imageFb"/>
+            <img src="http://www.rushlasik.com/wp-content/uploads/2018/04/google-1015752_960_720.png" className="imageGg"/>
+          </div>
+          <div className="line">&nbsp;</div>
           <Mutation mutation={LOGIN_USER}>
             { (login, { data }) => (
               <div>
@@ -73,7 +78,7 @@ import { LOGIN_USER } from '../graphql/mutationType';
                     onChange={this.getData}
                     placeholder="password"/>
                   <button type="submit" className="buttonPress">
-                    <p>Log In</p>
+                    <p className="buttonItem">Log In</p>
                   </button>
                 </form>
                 {

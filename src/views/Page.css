@@ -1,9 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Ubuntu');
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web');
+@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville:700');
 
 .boxSnippet {
   display: flex;
   flex-direction: row;
+  margin-top: 10px;
 }
 
 .leftBox {
@@ -15,30 +18,32 @@
   width: 2%;
   border-style: solid;
   border-width: 1vr;
-  border-left-color: rgb(108, 163, 160);
-  border-right-color: rgb(108, 163, 160);
+  border-left-color: white;
+  border-right-color: white;
   border-bottom-color: transparent;
   border-top-color: transparent;
-  background-color: lightcyan;
 }
 
 .smallBoxLeft {
-  width: 49%;
-  height: 375px;
+  width: 48%;
+  height: 100%;
   display: block;
   counter-reset: my-sec-counter;
 }
 
 .smallBoxRight {
   width: 49%;
-  height: 375px;
+  height: 570px;
   background-color: black;
 }
 
 .bottomBox {
-  width: 98%;
-  margin: 25vr;
-  height: 150vr;
+  width: 98.5%;
+  margin: 10px;
+  min-height: 150vr;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
 }
 
 .forInput {
@@ -50,11 +55,6 @@
   resize: none;
 }
 
-.forInput::before {
-  counter-increment: my-sec-counter;
-  content: counter(my-sec-counter) ". ";
-}
-
 .forOutput {
   margin-top: 10px;
   margin-left: 10px;
@@ -63,7 +63,7 @@
   border: none;
   outline: none;
   background-color: transparent;
-  color: green;
+  color: white;
   resize: none;
 }
 
@@ -102,14 +102,23 @@
 .buttonPress {
   width: 225px;
   height: 35px;
-  margin-top: 10px;
-  background-color: rgb(108, 163, 160);
+  background-color: rgb(230, 151, 31);
   color: white;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Libre Baskerville', serif;
+  box-shadow: none;
 }
 
 .buttonPress:hover {
-  background-color: rgb(48, 72, 88);
+  background-color: white;
+  color: rgb(230, 151, 31);
+}
+
+.buttonItem {
+  padding-bottom: 50px;
 }
 
 .signUpParrent {
@@ -150,13 +159,27 @@ img {
 }
 
 .histContent {
-  width: 50%;
+  width: 30%;
 }
 
 .history {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.histories {
+  padding: 20px;
+  margin-bottom: 10px;
+  border-style: solid;
+  border-width: 0px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.histories:hover {
+  background-color: darkgray;
 }
 
 .topBar {
@@ -170,12 +193,110 @@ img {
   margin-right: 10px;
   display: block;
   cursor: pointer;
-  background-color: rgb(108, 163, 160);
+  background-color: rgb(250, 140, 26);
   padding: 5px;
   color: white;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  border-color: transparent;
+  padding: 5px;
 }
 
 .buttonToConvert:hover {
-  background-color: rgb(103, 141, 139);
+  background-color: white;
+  color: rgb(250, 140, 26);
+  border-color: rgb(250, 140, 26);
 }
 
+.imgHor {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+.imageFb {
+  width: 41px;
+  height: 41px;
+  margin-right: 25px;
+  cursor: pointer;
+}
+
+.imageFb:hover {
+  border-style: solid;
+  border-color: transparent;
+  border-width: 0px;
+  border-radius: 20px;
+  background-color: rgb(230, 151, 31);
+}
+
+.imageGg {
+  cursor: pointer;
+  margin-left: 25px;
+  margin-top: 3px;
+  width: 35px;
+  height: 35px;
+}
+
+.imageGg:hover {
+  border-style: solid;
+  border-color: transparent;
+  border-width: 0px;
+  border-radius: 20px;
+  background-color: rgb(230, 151, 31);
+}
+
+.line {
+  border-style: solid;
+  border-width: 1px;
+  border-top-color: black;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  width: 222px;
+}
+
+.startedGuest {
+  border-style: solid;
+  border-width: 2px;
+  border-color: transparent;
+  width: 145px;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  background-color: rgb(250, 140, 26);
+  margin-bottom: 20px;
+}
+
+.startedGuest:hover {
+  color: rgb(250, 140, 26);
+  background-color: white;
+  border-color: rgb(250, 140, 26);
+}
+
+.startedUser {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.itemStarted {
+  border-style: solid;
+  border-width: 2px;
+  border-color: transparent;
+  width: 80px;
+  padding: 8px;
+  border-radius: 10px;
+  color: white;
+  background-color: rgb(250, 140, 26);
+  text-align: center;
+  margin-left: 50px;
+  margin-right: 50px;
+  cursor: pointer;
+}
+
+.itemStarted:hover {
+  border-color: rgb(250, 140, 26);
+  color: rgb(250, 140, 26);
+  background-color: white;
+}

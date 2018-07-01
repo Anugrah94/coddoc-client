@@ -66,7 +66,7 @@ export default class SignedIn extends Component {
                     showGutter={true}
                     highlightActiveLine={true}
                     value={this.state.input}
-                    height='330px'
+                    height='315px'
                     width='620vr'
                     setOptions={{
                       enableBasicAutocompletion: false,
@@ -89,15 +89,6 @@ export default class SignedIn extends Component {
               value={this.state.snippet}>
             </TextareaAutosize>
           </div>
-        </div>
-        <div className="bottomBox">
-          <TextareaAutosize
-            className="forDoc"
-            type="text"
-            placeholder="doc..."
-            style={{ maxHeight: 150 }}
-            value={this.state.doc}>
-          </TextareaAutosize>
         </div>
       </div>
     );

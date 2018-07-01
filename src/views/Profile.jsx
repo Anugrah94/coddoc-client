@@ -43,7 +43,10 @@ export default class Profile extends Component {
                   <div className="histContent">
                     { data.user.histories.map(hist => {
                       return (
-                        <p><i className="fas fa-history"></i>&nbsp;&nbsp;{ hist._id }</p>
+                        <div className="histories">
+                          <div><i className="fas fa-history"></i>&nbsp;&nbsp;{ hist._id }</div>
+                          <div><i className="fas fa-window-close"></i></div>
+                        </div>
                       )
                     })}
                   </div>

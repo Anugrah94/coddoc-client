@@ -3,31 +3,38 @@
 .navbar {
   width: 100%;
 	height: 60vr;
-	background-color: lightcyan;
+  background-color: rgb(230, 151, 31);
+  background: linear-gradient(to bottom, rgb(230, 151, 31) 0%, rgb(250, 140, 26) 50%);
 	align-items: center;
 	display: flex;
   justify-content: space-between;
   font-family: 'Titillium Web', sans-serif;
-  border-bottom-color: rgb(108, 163, 160);
-  border-style: solid;
-  border-width: 1vr;
-  border-top-color: transparent;
-  border-left-color: transparent;
-  border-right-color: transparent;
 }
 
 .leftContent {
   margin-left: 20px;
   cursor: pointer;
+  color: white;
 }
 
 .rightContent {
   margin-right: 40px;
   cursor: pointer;
+  color: white;
+  font-weight: bold;
 }
 
 .rightContent:hover {
-  color: blue;
+  padding: 10px;
+  background-color: white;
+  color: rgb(230, 151, 31);
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.5px solid transparent;
+  border-radius: 5px;
+  margin-right: 30px;
 }
 
 .rightContentDropDown {
@@ -35,29 +42,43 @@
   cursor: pointer;
   position: relative;
   display: inline-block;
+  color: white;
+  font-weight: bold;
 }
 
 .rightContentDropDown:hover {
-  color: blue;
+  padding: 10px;
+  background-color: white;
+  color: rgb(230, 151, 31);
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.5px solid transparent;
+  border-radius: 5px;
+  margin-right: 30px;
 }
 
 .dropdownContent {
   display: none;
-  position: absolute;
+  margin-top: 60px;
+  position: fixed;
   background-color: #f9f9f9;
-  min-width: 100px;
+  min-width: 122px;
   box-shadow: 0vr 8vr 16vr 0vr rgba(0,0,0,0.2);
   z-index: 1;
+  border: 0.5px solid transparent;
+  border-radius: 5px;
 }
 
 .dropdownContent .item {
-  color: black;
+  color: rgb(230, 151, 31);
   margin-left: 10px;
   display: block;
 }
 
 .dropdownContent .item:hover {
-  color: blue;
+  color: black;
 }
 
 .rightContentDropDown:hover .dropdownContent {
@@ -66,4 +87,12 @@
 
 .link {
   text-decoration: none;
+}
+
+.navbarLogo {
+  height: 30px;
+  color: white;
+  width: 150px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
