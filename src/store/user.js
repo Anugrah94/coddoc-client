@@ -4,7 +4,8 @@ class User {
   @observable loginStatus = false;
   @observable statusProfilePage = false;
   @observable statusLoginPage = false;
-  @observable user = {};
+  @observable errorLogin = '';
+  @observable oneId = null;
 
   logIn() {
     this.loginStatus = true;
@@ -31,8 +32,16 @@ class User {
     this.statusProfilePage = false;
   }
 
-  addUser(user) {
-    this.user = user;
+  setErrorLogin() {
+    this.errorLogin = 'wrong username/password';
+  }
+
+  clearErrorLogin() {
+    this.errorLogin = '';
+  }
+
+  setId(id) {
+    this.oneId = id;
   }
 };
 

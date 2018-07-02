@@ -31,3 +31,11 @@ export const LOGIN_USER = gql `
     }
   }
 `
+
+export const ADD_HISTORY = gql `
+  mutation saveHistory($name: String, $code: String, $token: String) {
+    saveHistory(name: $name, code: $code, token: $token) {
+      _id
+    }
+  }
+`

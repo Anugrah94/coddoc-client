@@ -9,7 +9,7 @@ export default class Home extends Component {
     let token = localStorage.getItem('token')
     if(token) {
       userStore.logIn()
-      this.props.history.push('/main')
+      this.props.history.push('/main/profile')
     } else {
       userStore.wantLogin()
       userStore.resetAll()
@@ -20,14 +20,22 @@ export default class Home extends Component {
     return (
       <div>
         <NavBar props={this.props}/>
-        <div>
-          <Link to={'/main'}>
-            <button className="buttonPress">
-              <p className="signUpParrent">
-                Get started as guest
-              </p>
-            </button>
+        <div className="homeContainer">
+          <img className="homeImage" src="https://i.imgur.com/vNvHDdE.png" alt=""/>
+          <img className="homePicture" src="https://i.imgur.com/QNT0C22.png" alt=""/>
+          <Link className="link" to={'/main'}>
+            <div className="startedGuest">
+              Get started as guest
+            </div>
           </Link>
+          <div className="startedUser">
+              <div className="itemStarted" onClick={() => this.props.history.push('/login')}>
+                Login
+              </div>
+              <div className="itemStarted" onClick={() => this.props.history.push('/register')}>
+                Register
+              </div>
+            </div>
         </div>
       </div>
     );

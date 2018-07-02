@@ -1,12 +1,24 @@
 import React, { Component } from 'react';
 import TextareaAutosize from 'react-autosize-textarea';
-// import brace from 'brace';
 import AceEditor from 'react-ace';
+import Modal from 'react-modal';
 
 import 'brace/mode/java';
 import 'brace/theme/github';
 
 import '../views/Page.css';
+
+import { pythonjs, scrapping } from '../store/convert';
+
+const customStyles = {
+  content : {
+    top         : '0%',
+    left        : '50%',
+    right       : '0%',
+    bottom      : '0%',
+    marginRight : '0%'
+  }
+};
 
 export default class Main extends Component {
   constructor() {
@@ -14,10 +26,21 @@ export default class Main extends Component {
     this.state = {
       input: '',
       snippet: '',
-      doc: ''
-    }
+      doc: '',
+      showModal: false
+    };
+    this.handleOpenModal = this.handleOpenModal.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
+  handleOpenModal () {
+    this.setState({ showModal: true });
+  }
+  
+  handleCloseModal () {
+    this.setState({ showModal: false });
+  }
+  
   getData = (e) => {
     this.setState({
       input: e
@@ -29,40 +52,66 @@ export default class Main extends Component {
       snippet: 'loading...',
       doc: 'loading...'
     })
+    let output = pythonjs(this.state.input)
+    let scrap = scrapping(this.state.input)
+    console.log(scrap)
+    this.setState({
+      snippet: output
+    })
   }
 
   render() {
     return (
       <div>
+        <Modal 
+           isOpen={this.state.showModal}
+           contentLabel="Minimal Modal Example"
+           style={customStyles}
+        >
+          <button onClick={this.handleCloseModal}>Close Modal</button>
+          <div>Isi di dalam</div>
+        </Modal>
+        <div className="topBar">
+          <p
+            className="buttonToConvert"
+            onClick={() => this.convertData()}>
+            <i className="fas fa-play-circle"></i>
+            &nbsp;&nbsp;Convert
+          </p>
+          <p
+            className="buttonToConvert"
+            onClick={this.handleOpenModal}>
+            <i className="fas fa-file-alt"></i>
+            &nbsp;&nbsp;See the Documentation
+          </p>
+        </div>
         <div className="boxSnippet">
           <div className="smallBoxLeft">
-            <div className="topBar">
-              <p
-                className="buttonToConvert"
-                onClick={() => this.convertData()}>
-                <i class="fas fa-play-circle"></i>
-                &nbsp;&nbsp;Convert
-              </p>
-            </div>
-            <AceEditor
-              className="forInput"
-              mode="javascript"
-              name="input"
-              onChange={this.getData}
-              fontSize={14}
-              showPrintMargin={true}
-              showGutter={true}
-              highlightActiveLine={true}
-              value={this.state.input}
-              height='330px'
-              width='620vr'
-              setOptions={{
-                enableBasicAutocompletion: false,
-                enableLiveAutocompletion: false,
-                enableSnippets: false,
-                showLineNumbers: true,
-                tabSize: 2,
-              }}/>
+            {/* <Mutation>
+              <div>
+                <form> */}
+                  <AceEditor
+                    className="forInput"
+                    mode="javascript"
+                    name="input"
+                    onChange={this.getData}
+                    fontSize={14}
+                    showPrintMargin={true}
+                    showGutter={true}
+                    highlightActiveLine={true}
+                    value={this.state.input}
+                    height='490px'
+                    width='620vr'
+                    setOptions={{
+                      enableBasicAutocompletion: false,
+                      enableLiveAutocompletion: false,
+                      enableSnippets: false,
+                      showLineNumbers: true,
+                      tabSize: 2,
+                    }}/>
+                {/* </form>
+              </div>
+            </Mutation> */}
           </div>
           <div className="midBox"></div>
           <div className="smallBoxRight">
@@ -70,19 +119,13 @@ export default class Main extends Component {
               className="forOutput"
               type="text"
               placeholder="result..."
-              style={{ maxHeight: 360 }}
+              style={{ maxHeight: 476, maxWidth: 625 }}
               value={this.state.snippet}>
             </TextareaAutosize>
           </div>
         </div>
-        <div className="bottomBox">
-          <TextareaAutosize
-            className="forDoc"
-            type="text"
-            placeholder="doc..."
-            style={{ maxHeight: 150 }}
-            value={this.state.doc}>
-          </TextareaAutosize>
+        <div className="footerPosition">
+          <div className="footer">2018 &copy; Coddoc Team</div>
         </div>
       </div>
     );

@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
+import { observer } from 'mobx-react';
 
 import NavBar from '../components/NavBar';
 import userStore from '../store/user';
 import { LOGIN_USER } from '../graphql/mutationType';
 
-export default class Login extends Component {
+@observer class Login extends Component {
   constructor() {
     super();
     this.state = {
       email: '',
       password: '',
-      visible: false,
     };
   };
 
@@ -20,9 +20,10 @@ export default class Login extends Component {
     let token = localStorage.getItem('token')
     if(token) {
       userStore.logIn()
-      this.props.history.push('/main')
+      this.props.history.push('/main/profile')
     } else {
       userStore.wantLogin()
+      userStore.clearErrorLogin()
     }
   };
 
@@ -47,6 +48,16 @@ export default class Login extends Component {
       <div>
         <NavBar props={ this.props }/>
         <div className="loginForm">
+          <div>
+            <p>
+              {userStore.errorLogin}
+            </p>
+          </div>
+          <div className="imgHor">
+            <img src="http://marcusandmartinus.com/wp-content/uploads/2014/03/58e91965eb97430e819064f5.png" className="imageFb" alt="fbLogo"/>
+            <img src="http://www.rushlasik.com/wp-content/uploads/2018/04/google-1015752_960_720.png" className="imageGg" alt="ggLogo"/>
+          </div>
+          <div className="line">&nbsp;</div>
           <Mutation mutation={LOGIN_USER}>
             { (login, { data }) => (
               <div>
@@ -67,15 +78,18 @@ export default class Login extends Component {
                     onChange={this.getData}
                     placeholder="password"/>
                   <button type="submit" className="buttonPress">
-                    <p>Log In</p>
+                    Log In
                   </button>
                 </form>
                 {
-                  data !== undefined && (
-                    userStore.addUser(data.login.user),
-                    localStorage.setItem('token', data.login.token),
-                    userStore.logIn(),
-                    this.props.history.push('/main')
+                  data && (
+                    data.login !== null ? (
+                      localStorage.setItem('token', data.login.token),
+                      userStore.logIn(),
+                      this.props.history.push('/main/profile')
+                    ) : (
+                      userStore.setErrorLogin()
+                    )
                   )
                 }
               </div>
@@ -91,3 +105,6 @@ export default class Login extends Component {
     );
   };
 };
+
+
+export default Login
