@@ -4,9 +4,8 @@ class User {
   @observable loginStatus = false;
   @observable statusProfilePage = false;
   @observable statusLoginPage = false;
-  @observable user = {};
   @observable errorLogin = '';
-  @observable errorRegister = '';
+  @observable oneId = null;
 
   logIn() {
     this.loginStatus = true;
@@ -41,12 +40,8 @@ class User {
     this.errorLogin = '';
   }
 
-  setErrorRegister() {
-    this.errorRegister = 'salah ni pak';
-  }
-
-  clearErrorRegister() {
-    this.errorRegister = '';
+  setId(id) {
+    this.oneId = id;
   }
 };
 

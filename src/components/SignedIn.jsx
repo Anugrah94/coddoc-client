@@ -1,30 +1,57 @@
 import React, { Component } from 'react';
 import TextareaAutosize from 'react-autosize-textarea';
-// import brace from 'brace';
 import AceEditor from 'react-ace';
-import { Mutation } from 'react-apollo';
+import Modal from 'react-modal';
+import { Query } from 'react-apollo';
 
 import 'brace/mode/java';
 import 'brace/theme/github';
 
+import { READ_HISTORY } from '../graphql/queryType'
 import '../views/Page.css';
+import userStore from '../store/user';
 
-import { pythonjs, functionDetection, scrapping } from '../store/convert'
+import { pythonjs, scrapping } from '../store/convert';
 
-export default class SignedIn extends Component {
+const customStyles = {
+  content : {
+    top         : '0%',
+    left        : '50%',
+    right       : '0%',
+    bottom      : '0%',
+    marginRight : '0%'
+  }
+};
+
+export default class Main extends Component {
   constructor() {
     super();
     this.state = {
       input: '',
       snippet: '',
-      doc: ''
-    }
+      doc: '',
+      showModal: false
+    };
+    this.handleOpenModal = this.handleOpenModal.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
+  handleOpenModal () {
+    this.setState({ showModal: true });
+  }
+  
+  handleCloseModal () {
+    this.setState({ showModal: false });
+  }
+  
   getData = (e) => {
     this.setState({
       input: e
     })
+  }
+
+  componentDidMount() {
+    console.log(this.params)
   }
 
   convertData = () => {
@@ -43,16 +70,30 @@ export default class SignedIn extends Component {
   render() {
     return (
       <div>
+        {/* <Query query={READ_HISTORY} variables={{_id: hist._id}}></Query> */}
+        <Modal 
+           isOpen={this.state.showModal}
+           contentLabel="Minimal Modal Example"
+           style={customStyles}
+        >
+          <button onClick={this.handleCloseModal}>Close Modal</button>
+        </Modal>
+        <div className="topBar">
+          <p
+            className="buttonToConvert"
+            onClick={() => this.convertData()}>
+            <i className="fas fa-play-circle"></i>
+            &nbsp;&nbsp;Convert
+          </p>
+          <p
+            className="buttonToConvert"
+            onClick={this.handleOpenModal}>
+            <i className="fas fa-file-alt"></i>
+            &nbsp;&nbsp;See the Documentation
+          </p>
+        </div>
         <div className="boxSnippet">
           <div className="smallBoxLeft">
-            <div className="topBar">
-              <p
-                className="buttonToConvert"
-                onClick={() => this.convertData()}>
-                <i className="fas fa-play-circle"></i>
-                &nbsp;&nbsp;Convert
-              </p>
-            </div>
             {/* <Mutation>
               <div>
                 <form> */}
@@ -66,7 +107,7 @@ export default class SignedIn extends Component {
                     showGutter={true}
                     highlightActiveLine={true}
                     value={this.state.input}
-                    height='315px'
+                    height='490px'
                     width='620vr'
                     setOptions={{
                       enableBasicAutocompletion: false,
@@ -85,10 +126,13 @@ export default class SignedIn extends Component {
               className="forOutput"
               type="text"
               placeholder="result..."
-              style={{ maxHeight: 360 }}
+              style={{ maxHeight: 500, maxWidth: 616 }}
               value={this.state.snippet}>
             </TextareaAutosize>
           </div>
+        </div>
+        <div className="footerPosition">
+          <div className="footer">2018 &copy; Coddoc Team</div>
         </div>
       </div>
     );

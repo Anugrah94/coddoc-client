@@ -12,3 +12,23 @@ export const READ_USER = gql `
     }
   }
 `
+
+export const READ_HISTORY = gql `
+  query history($_id: String) {
+    history(_id: $_id) {
+      _id
+      user
+      name
+      code
+    }
+  }
+`
+
+export const READ_DOC = gql `
+  query documentation($syntaxes: [String]) {
+    documentation(syntaxes: $syntaxes) {
+      doc
+      syntax
+    }
+  }
+`

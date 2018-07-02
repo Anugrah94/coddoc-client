@@ -1,10 +1,10 @@
 export const pythonjs = (input) => {
-  let str = check(input);
-  console.log(str)
+  console.log(input);
+  let str = convert(input);
 
   let func            = str.replace(/function/gi, 'def');
-  let funcname        = func.replace(/,+[(]/gi, '(');
-  let funcname2       = funcname.replace(/,+[' ']+[(]/gi, '(')
+  let funcname        = func.replace(/[' ']+,+[(]/gi, '(');
+  let funcname2       = funcname.replace(/,+[(]/gi, '(');
   let pythonClass     = funcname2.replace(/constructor+[(]/gi, 'def __init__(self, ');
   let pythonThis      = pythonClass.replace(/this./gi, 'self.');
   let pythonInstance  = pythonThis.replace(/[' ']+new+['  ']/gi, ' ');
@@ -28,128 +28,212 @@ export const pythonjs = (input) => {
   let result          = endbracket.replace(/[^\a-z\A-Z\,\:\=\+\>\<\;\&\|\!\/\.\"\'\()\w\s]/gi, ' ');
   let and             = result.replace(/&&/gi, 'and');
   let or              = and.replace(/[|]+[|]/gi, 'or');
-  let not             = or.replace(/!/gi, 'not ');
-  let is              = not.replace(/===/gi,'is');
+  let is              = or.replace(/===/gi,'is');
   let isNot           = is.replace(/!==/gi,'is not');
-  let right           = isNot.replace(/true/gi, 'True');
+  let not             = isNot.replace(/!/gi, 'not ');
+  let right           = not.replace(/true/gi, 'True');
   let wrong           = right.replace(/false/gi, 'False');
   let erase           = wrong.replace(/delete/gi, 'del');
   let comment         = erase.replace(/[/]+[/]/gi, '#');
-  let none            = comment.replace(/null/gi, 'None');
+  let comment2        = comment.replace(/[/]+[/]+[' ']/gi, '# ');
+  let none            = comment2.replace(/null/gi, 'None');
   let variable        = none.replace(/var+[' ']/gi, '');
+  let constanta       = variable.replace(/const+[' ']/gi, '');
+  let varlet          = constanta.replace(/let+[' ']/gi, '');
+  let negation        = varlet.replace(/[.]+[,]/gi, '!');
+  let semicolon       = negation.replace(/[;]/gi, '')
+  let coma            = semicolon.replace(/[,]+[,]/gi, '');
 
-  return variable;
+  return coma;
 }
 
-export const functionDetection = (array) => {
-  let keyword = [];
+function funcChange (input) {
+  let funcStr = input.split(')');
 
-  array.forEach(search => {
-    if (/^(function)/g.test(search) || /^(if)/g.test(search) || /^(for)/g.test(search) || /^(while)/g.test(search) || /^(class)/g.test(search)) {
-      keyword.push(`${search} python w3school`);
-    }
-  })
-
-  return keyword;
-}
-
-const check = (input) => {
-  let compare = ['let', 'var', 'const'];
-  let convert = input.split(' ');
-  let result;
-  for(let i=0; i<compare.length; i++) {
-    if(convert[0] === compare[i]) {
-      result = compare[i];
-    };
-  };
-  if(result === compare[0] || result === compare[1] || result === compare[2]) {
-    result = 'var';
-    for(let i=1; i<convert.length; i++) {
-      result += ' ' + convert[i];
-    };
-    return result;
-  } else if(convert[0] === 'class' || convert[0] === 'Class') {
-    let findC = input.indexOf('constructor') + 1;
-    if(findC === 0) {
-      let start = input.indexOf('{');
-      let forCheck = '';
-      let early = '';
-      for(let l=0; l<=start; l++){
-        early += input[l];
-      }
-      for(let p=start+1; p<input.length-2; p++){
-        forCheck += input[p];
-      }
-      let mid = toConvert(forCheck);
-      let newClass = early + '\n' + mid + '\n}'
-      return newClass;
-    }
-  } else if(convert[0] !== 'function') {
-    result = '';
-    for(let i=0; i<input.length; i++) {
-      if(input[i] === ')' && (input[i+1] === '{' || input[i+1] === ' ')){
-        result += input[i] + ',';
-      } else {
-        result += input[i];
-      };
-    };
-    return result;
-  };
-};
-
-const toConvert = (str) => {
-  if(str.length === 0) {
-    return '';
-  } else {
-    let count = 0;
-    for(let i=0; i<str.length; i++){
-      if(str[i] === '{'){
-        count++;
-      } else if(str[i] === '}') {
-        count--;
-        if(count === 0) {
-          let tempStr = 'function ';
-          for(let j=0; j<=i; j++){
-            tempStr += str[j]
-          }
-          let stop = tempStr.indexOf('(');
-          let newStr = '';
-          for(let k=0; k<tempStr.length; k++){
-            if(k === stop) {
-              newStr += ';' + tempStr[k];
-            } else {
-              newStr += tempStr[k];
-            }
-          }
-          let strLeft = str.slice(i+2, str.length);
-          return newStr + '\n' + toConvert(strLeft);
+  for (let i = 0; i < funcStr.length; i++) {
+    if (funcStr[i].includes('function') === true) {
+      let string = '';
+      for (let j = 0; j < funcStr[i].length; j++) {
+        if (funcStr[i][j] === '(') {
+          string += ',,' + funcStr[i][j];
+        } else {
+          string += funcStr[i][j];
         }
+      }
+      funcStr[i] = string;
+    }
+  }
+
+  return funcStr.join(')');
+}
+
+function equalChange (input) {
+  let str = funcChange(input);
+  let string = '';
+
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === '!' && str[i + 1] === '=' && str[i + 2] === ' ') {
+      string += str[i] + ',,';
+    } else if (str[i - 1] === `'` && str[i] === '!' && str[i + 1] === `'`) {
+      string += '.' + ',';
+    } else {
+      string += str[i];
+    }
+  }
+
+  return string;
+}
+
+function forLoop (input) {
+  let loop = input.split('{');
+
+  for (let i = 0; i < loop.length; i++) {
+    if (loop[i].includes('for') === true && loop[i].includes('++') === true) {
+      let split = loop[i].split(';');
+      let index0 = split[0].split(' ');
+      let index1 = split[1].split(' ');
+      let regex = /[a-zA-Z]/gi.test(index1[index1.length - 1]);
+      let indentation = index0.join(' ').split('for');
+      
+      if (!regex) {
+        loop[i] = `${indentation[0]}for ${index1[1]} in range(${index0[index0.length - 1]}, ${index1[index1.length - 1]}))`; 
+      } else {
+        loop[i] = `${indentation[0]}for ${index1[1]} in ${index1[index1.length - 1]}`; 
       }
     }
   }
+
+  return loop.join('{');
 }
 
-export const scrapping = (str) => {
-  let library = [
-    'for',
-    'let',
+function changeInput (input) {
+  let loop = forLoop(input)
+  let str = equalChange(loop);
+  let array = str.split('{');
+
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].includes('if') === true || array[i].includes('for') === true || array[i].includes('while') === true) {
+      let string = '';
+      for (let j = 0; j < array[i].length; j++) {
+        if (array[i][j] === ')') {
+          string += array[i][j] + ',,';
+        } else {
+          string += array[i][j];
+        }
+      }
+      array[i] = string;
+    }
+  }
+
+  return array.join('{');
+}
+
+function changeClass (input) {
+  let convert = input.split('\n');
+  let firstIndex;
+  let lastIndex;
+
+  for (let i = 0; i < convert.length; i++) {
+    if (convert[i].includes('class') === true) {
+      firstIndex = i;
+    } else if (convert[i].includes('  }') === true) {
+      lastIndex = i;
+    }
+  }
+
+  console.log(firstIndex, lastIndex)
+
+  for (let i = firstIndex; i <= lastIndex; i++) {
+    let string = '';
+    if (convert[i].includes('){') === true && convert[i].includes('constructor') === false) {
+      for (let j = 0; j < convert[i].length; j++) {
+        if (convert[i][j] === '(') {
+          string += ';' + convert[i][j];
+        } else {
+          string += convert[i][j];
+        }
+      }
+
+      convert[i] = '  function' + string;
+    }
+  }
+
+  return convert.join('\n');
+}
+
+function convert (input) {
+  let classConverting = changeClass(input);
+  let inputConverting = changeInput(classConverting);
+
+  console.log(inputConverting);
+
+  return inputConverting;
+};
+
+export const forScrap = (input) => {
+  const library = [
+    'function',
     'var',
+    'let',
     'const',
-    'while',
     'if',
     'else',
     'else if',
-    'function',
+    'for',
+    'while',
+    'forEach',
+    'map',
     'class',
-    'console.log'
-  ]
-  let newLib = []
+    'Class',
+    'console.log',
+    'constructor',
+    'return'
+  ];
+  const forSearch = [
+    "function python", 
+    "condition python", 
+    "looping python",
+    "class python",
+    "output python",
+    "input python",
+    "constructor python",
+    "method python",
+    "return python",
+    "variable python"
+  ];
+  let earlyArray = [];
   for(let i=0; i<library.length; i++){
-    if(str.indexOf(library[i]) !== -1){
-      newLib.push(library[i])
+    if(input.indexOf(library[i]) !== -1){
+      earlyArray.push(library[i])
     }
   }
-  return newLib
+  let arrayForSearch = [];
+  for(let i=0; i<earlyArray.length; i++){
+    if(earlyArray[i] === 'var' || earlyArray[i] === 'let' || earlyArray[i] === 'const') {
+      arrayForSearch.push('variable python')
+    } else if(earlyArray[i] === 'if' || earlyArray[i] === 'else if' || earlyArray[i] === 'else') {
+      arrayForSearch.push('condition python')
+    } else if(earlyArray[i] === 'for' || earlyArray[i] === 'while' || earlyArray[i] === 'forEach' || earlyArray[i] === 'map') {
+      arrayForSearch.push('looping python')
+    } else if(earlyArray[i] === 'class' || earlyArray[i] === 'Class') {
+      arrayForSearch.push('class python')
+    } else if(earlyArray[i] === 'console.log') {
+      arrayForSearch.push('output python')
+    } else if(earlyArray[i] === 'constructor') {
+      arrayForSearch.push('constructor python')
+    } else if(earlyArray[i] === 'function') {
+      arrayForSearch.push('function python')
+    } else if(earlyArray[i] === 'return') {
+      arrayForSearch.push('return python')
+    }
+  };
+  let arrayFinal = [];
+  for(let i=0; i<forSearch.length; i++) {
+    if(arrayForSearch.includes(forSearch[i]) === true) {
+      arrayFinal.push(forSearch[i]);
+    };
+  };
+  return arrayFinal;
 }
 
 // console.log(pythonjs(`function namafunc(param1, param2){\nvar a = String(10)\nfor (number in 5),{\nif (condition && condition || condition === true || condition === false === undefined && condition === null),{\ncode} else if (condition),{\nwhile (a > b),{\nconsole.log(code)\narray.push(item) if(item),{//code here}else{//code here}}//ini code\ndelete item}}}`));

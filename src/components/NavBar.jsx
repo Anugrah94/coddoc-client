@@ -43,7 +43,7 @@ import userStore from '../store/user'
     } else if(userStore.statusLoginPage === true) {
       return (
         <div className="navbar">
-          <div className="leftContent"  onClick={() => this.backToHome()}>
+          <div className="leftContent" onClick={() => this.backToHome()}>
             <img src="https://i.imgur.com/f0Y5Ssm.png" alt="logoNavbar" className="navbarLogo"/>
           </div>
         </div>
@@ -51,7 +51,7 @@ import userStore from '../store/user'
     } else if(userStore.loginStatus === false) {
       return (
         <div className="navbar">
-          <div className="leftContent"  onClick={() => this.backToHome()}>
+          <div className="leftContent" onClick={() => this.backToHome()}>
             <img src="https://i.imgur.com/f0Y5Ssm.png" alt="logoNavbar" className="navbarLogo"/>
           </div>
           <div className="rightContent" onClick={() => this.logIn()}>

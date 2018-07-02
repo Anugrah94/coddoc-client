@@ -4,8 +4,11 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { ApolloProvider } from "react-apollo";
+import Modal from 'react-modal';
 
 import client from './graphql/client'
+
+Modal.setAppElement('#root');
 
 ReactDOM.render(
   <ApolloProvider client={ client }>
