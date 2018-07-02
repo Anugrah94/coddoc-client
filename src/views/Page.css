@@ -462,6 +462,42 @@ img {
   margin-bottom: 5px;
 }
 
+.selectOption {
+  align-self: center;
+  margin-right: 10px;
+  font-weight: bold;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 17px;
+}
+
+.selectOption2 {
+  align-self: center;
+  margin-right: -200px;
+}
+
+.selectButton {
+  display: block;
+  cursor: pointer;
+  background-color: rgb(250, 140, 26);
+  color: white;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  border-color: transparent;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.leftBar {
+  display: flex;
+  flex-direction: row;
+}
+
+.rightBar {
+  display: flex;
+  flex-direction: row;
+}
+
 @media only screen and (min-width: 500px) {
   .topBar {
     flex-direction: row;
@@ -470,8 +506,6 @@ img {
   }
 
   .topBarLeft {
-    width: 630px;
-    margin-right: -310px;
     margin-bottom: 0px;
   }
 

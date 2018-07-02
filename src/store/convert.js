@@ -41,8 +41,9 @@ export const pythonjs = (input) => {
   let constanta       = variable.replace(/const+[' ']/gi, '');
   let varlet          = constanta.replace(/let+[' ']/gi, '');
   let negation        = varlet.replace(/[.]+[,]/gi, '!');
-  let semicolon       = negation.replace(/[;]/gi, '')
-  let coma            = semicolon.replace(/[,]+[,]/gi, '');
+  let semicolon       = negation.replace(/[;]/gi, '');
+  let length          = semicolon.replace(/.length/g, '');
+  let coma            = length.replace(/[,]+[,]/gi, '');
 
   return coma;
 }
@@ -66,6 +67,23 @@ function funcChange (input) {
 
   return funcStr.join(')');
 }
+
+function consolelog (input) {
+  let consolog = input.split('\n');
+
+  for (let i = 0; i < consolog.length; i++) {
+    if (consolog[i].includes('])') === true) {
+      let squareSpitLeft = consolog[i].split('[');
+      let result = squareSpitLeft[squareSpitLeft.length - 1].split(']')[0];
+      let indentation = squareSpitLeft[0].split('console');
+      
+      consolog[i] = `${indentation[0]}console.log(${result})`;
+    }
+  }
+
+  return consolog.join('\n');
+}
+
 
 function equalChange (input) {
   let str = funcChange(input);
@@ -109,7 +127,8 @@ function forLoop (input) {
 function changeInput (input) {
   let loop = forLoop(input)
   let str = equalChange(loop);
-  let array = str.split('{');
+  let consolog = consolelog(str);
+  let array = consolog.split('{');
 
   for (let i = 0; i < array.length; i++) {
     if (array[i].includes('if') === true || array[i].includes('for') === true || array[i].includes('while') === true) {
@@ -145,7 +164,7 @@ function changeClass (input) {
 
   for (let i = firstIndex; i <= lastIndex; i++) {
     let string = '';
-    if (convert[i].includes('){') === true && convert[i].includes('constructor') === false) {
+    if (convert[i].includes(') {') === true || convert[i].includes('){') === true && convert[i].includes('constructor') === false) {
       for (let j = 0; j < convert[i].length; j++) {
         if (convert[i][j] === '(') {
           string += ';' + convert[i][j];

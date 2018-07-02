@@ -33,8 +33,15 @@ export default class Main extends Component {
       snippet: '',
       doc: '',
       showModal: false,
-      forSearch: []
+      forSearch: [],
+      value: ''
     };
+  };
+
+  componentDidMount() {
+    this.setState({
+      value: sessionStorage.getItem('language')
+    })
   }
 
   handleOpenModal = () => {
@@ -60,10 +67,19 @@ export default class Main extends Component {
       snippet: 'loading...',
       doc: 'loading...'
     })
-    let output = pythonjs(this.state.input)
-    this.setState({
-      snippet: output
-    })
+    if(this.state.value === 'python'){
+      let output = pythonjs(this.state.input)
+      this.setState({
+        snippet: output
+      })
+    } else {
+      console.log('ga ada')
+    }
+  }
+
+  handleChange = (e) => {
+    this.setState({value: e.target.value});
+    sessionStorage.setItem('language', e.target.value)
   }
 
   render() {
@@ -109,7 +125,18 @@ export default class Main extends Component {
           }
         </Modal>
         <div className="topBar">
-          <div>&nbsp;</div>
+          <div className="leftBar">
+            <div className="selectOption">Select Language to Convert:</div>
+            <div className="selectOption2">
+              <select
+                value={this.state.value}
+                onChange={this.handleChange}
+                className="selectButton">
+                <option value="python">Python</option>
+                <option value="ruby">Ruby</option>
+              </select>
+            </div>
+          </div>
           <div className="topBarContent">
             <p
               className="buttonToConvert"

@@ -12,12 +12,15 @@ import Main from './views/Main';
 import MainDetail from './views/MainDetail'
 import Profile from './views/Profile';
 import Register from './views/Register';
-import Loading from './components/Error';
+import NotFound from './components/NotFound';
 
 class App extends Component {
   componentDidMount() {
-
-  }
+    let language = sessionStorage.getItem('language');
+    if(!language){
+      sessionStorage.setItem('language', 'python');
+    };
+  };
 
   render() {
     return (
@@ -33,7 +36,7 @@ class App extends Component {
               )
             } />
             <Route path='/main/profile' component={ Profile } />
-            <Route path='*' component= { Loading } />
+            <Route path='*' component= { NotFound } />
 					</Switch>
 				</Router>
       </div>

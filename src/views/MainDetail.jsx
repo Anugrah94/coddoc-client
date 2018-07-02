@@ -47,16 +47,19 @@ export default class Main extends Component {
       doc: '',
       showModal: false,
       showModal2: false,
-      historyName: ''
+      historyName: '',
+      value: ''
     };
   }
 
   componentDidMount() {
     let token = localStorage.getItem('token')
-    console.log(this.props)
+    this.setState({
+      value: sessionStorage.getItem('language')
+    })
     if(token) {
       userStore.logIn()
-      axios.get(`http://localhost:3000/history/${this.props.match.params.id}`)
+      axios.get(`https://api.coddoc.net/history/${this.props.match.params.id}`)
         .then(response => {
           this.setState({
             historyData: response.data.result,
@@ -100,15 +103,19 @@ export default class Main extends Component {
       snippet: 'loading...',
       doc: 'loading...'
     })
-    let output = pythonjs(this.state.input)
-    this.setState({
-      snippet: output
-    })
+    if(sessionStorage.getItem('language') === 'python'){
+      let output = pythonjs(this.state.input)
+      this.setState({
+        snippet: output
+      })
+    } else {
+      console.log('ga ada')
+    }
     this.updateData()
   }
 
   updateData = () => {
-    axios.put(`http://localhost:3000/history/update/${this.props.match.params.id}`, {
+    axios.put(`https://api.coddoc.net/history/update/${this.props.match.params.id}`, {
       code: this.state.input
     }, {
       headers: {
@@ -149,6 +156,11 @@ export default class Main extends Component {
         }
       });
     }
+  };
+
+  handleChange = (e) => {
+    this.setState({value: e.target.value});
+    sessionStorage.setItem('language', e.target.value);
   };
 
   render() {
@@ -261,7 +273,18 @@ export default class Main extends Component {
               &nbsp;&nbsp;See the Documentation
             </p>
           </div>
-          <div>&nbsp;</div>
+          <div className="rightBar">
+            <div className="selectOption">Select Language to Convert:</div>
+            <div className="selectOption">
+              <select
+                value={this.state.value}
+                onChange={this.handleChange}
+                className="selectButton">
+                <option value="python">Python</option>
+                <option value="ruby">Ruby</option>
+              </select>
+            </div>
+          </div>
         </div>
         <div>
           <div className="lineForMain">
