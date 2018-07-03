@@ -15,16 +15,6 @@ import { READ_DOC } from '../graphql/queryType';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 
-const customStyles = {
-  content : {
-    top         : '0%',
-    left        : '50%',
-    right       : '0%',
-    bottom      : '0%',
-    marginRight : '0%'
-  }
-};
-
 export default class Main extends Component {
   constructor() {
     super();
@@ -88,14 +78,16 @@ export default class Main extends Component {
         <NavBar props={this.props}/>
         <Modal 
           isOpen={this.state.showModal}
-          contentLabel="Minimal Modal Example"
-          style={customStyles}>
+          contentLabel="Modal Doc"
+          className="customModal"
+          overlayClassName="customOverlay">
           <div
             onClick={this.handleCloseModal}
             className="closeButton">
             <i className="fas fa-times-circle"></i>
             &nbsp;&nbsp;Close
           </div>
+          <div className="titleModal">Documentation for your code based on {this.state.value} language</div>
           {
             this.state.showModal === true && (
               <Query query={READ_DOC} variables={{syntaxes: this.state.forSearch}}>
@@ -107,13 +99,16 @@ export default class Main extends Component {
                       {
                         data.documentation.map(oneDoc => {
                           return (
-                            oneDoc.doc[0].split(',').map(result => {
-                              return (
-                                <div className="docItem">
-                                  <a href={result} target="_blank">{result}</a>
-                                </div>
-                              )
-                            })
+                            <div className="insideContainer">
+                              <div className="titleDoc">{`Learn ${oneDoc.syntax}`}</div>
+                                {oneDoc.doc[0].split(',').map((result, index) => {
+                                  return (
+                                    <div className="docItem">
+                                      <a href={result} target="_blank" className="textDoc">{`Documentation ${index + 1}`}</a>
+                                    </div>
+                                  )
+                                })}
+                            </div>
                           )
                         })
                       }
@@ -126,7 +121,7 @@ export default class Main extends Component {
         </Modal>
         <div className="topBar">
           <div className="leftBar">
-            <div className="selectOption">Select Language to Convert:</div>
+            <div className="selectOption">Select Converted Language:</div>
             <div className="selectOption2">
               <select
                 value={this.state.value}

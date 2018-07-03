@@ -9,15 +9,6 @@ import userStore from '../store/user';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 
-const customStyles = {
-  content : {
-    top         : '33%',
-    left        : '25%',
-    right       : '25%',
-    bottom      : '33%',
-  }
-};
-
 export default class Profile extends Component {
   constructor() {
     super();
@@ -84,14 +75,15 @@ export default class Profile extends Component {
         <Modal 
           isOpen={this.state.showModal}
           contentLabel="Modal 2"
-          style={customStyles}>
+          className="modalInput"
+          overlayClassName="overlayInput">
           <div
             onClick={this.handleCloseModal}
             className="closeButton">
             <i className="fas fa-times-circle"></i>
             &nbsp;&nbsp;Close
           </div>
-          <div className="docContainer">
+          <div className="createContainer">
             <div className="createTitle">Create new history</div>
             <Mutation mutation={ADD_HISTORY}>
               {(saveHistory, { data }) => (
