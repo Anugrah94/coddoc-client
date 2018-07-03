@@ -49,13 +49,6 @@ import { LOGIN_USER } from '../graphql/mutationType';
     return (
       <Fragment>
         <NavBar props={ this.props }/>
-        <button
-          onClick={() => {
-            this.props.alert.error("You just broke something!");
-          }}
-        >
-          Oops, an error
-        </button>
         <div className="loginForm">
           <div>
             <p>
@@ -97,7 +90,7 @@ import { LOGIN_USER } from '../graphql/mutationType';
                       userStore.logIn(),
                       this.props.history.push('/main/profile')
                     ) : (
-                      this.props.alert.error("wrong username or password")
+                      console.log('error')
                     )
                   )
                 }
