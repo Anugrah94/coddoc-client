@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 import { observer } from 'mobx-react';
+import { withAlert } from "react-alert";
 
 import NavBar from '../components/NavBar';
 import userStore from '../store/user';
@@ -25,6 +26,7 @@ import { LOGIN_USER } from '../graphql/mutationType';
       userStore.wantLogin()
       userStore.clearErrorLogin()
     }
+    console.log(this.props);
   };
 
   getData = (e) => {
@@ -45,8 +47,15 @@ import { LOGIN_USER } from '../graphql/mutationType';
 
   render() {
     return (
-      <div>
+      <Fragment>
         <NavBar props={ this.props }/>
+        <button
+          onClick={() => {
+            this.props.alert.error("You just broke something!");
+          }}
+        >
+          Oops, an error
+        </button>
         <div className="loginForm">
           <div>
             <p>
@@ -88,7 +97,7 @@ import { LOGIN_USER } from '../graphql/mutationType';
                       userStore.logIn(),
                       this.props.history.push('/main/profile')
                     ) : (
-                      userStore.setErrorLogin()
+                      this.props.alert.error("wrong username or password")
                     )
                   )
                 }
@@ -101,10 +110,10 @@ import { LOGIN_USER } from '../graphql/mutationType';
             </p>
           </div>
         </div>
-      </div>
+      </Fragment>
     );
   };
 };
 
 
-export default Login
+export default withAlert(Login);

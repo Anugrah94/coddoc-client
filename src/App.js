@@ -5,6 +5,8 @@ import {
 	Switch
  }
 from 'react-router-dom';
+import { Provider } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
 
 import Home from './views/Home';
 import Login from './views/Login';
@@ -14,7 +16,12 @@ import Profile from './views/Profile';
 import Register from './views/Register';
 import NotFound from './components/NotFound';
 
-class App extends Component {
+const options = {
+  timeout: 5000,
+  position: "bottom center"
+};
+
+class Index extends Component {
   componentDidMount() {
     let language = sessionStorage.getItem('language');
     if(!language){
@@ -43,5 +50,15 @@ class App extends Component {
     );
   };
 };
+
+class App extends Component {
+  render() {
+    return (
+      <Provider template={AlertTemplate} {...options}>
+        <Index />
+      </Provider>
+    )
+  }
+}
 
 export default App;

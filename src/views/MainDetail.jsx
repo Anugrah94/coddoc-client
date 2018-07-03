@@ -19,25 +19,6 @@ import Error from '../components/Error';
 
 import { pythonjs, forScrap } from '../store/convert';
 
-const customStyles = {
-  content : {
-    top         : '0%',
-    left        : '50%',
-    right       : '0%',
-    bottom      : '0%',
-    marginRight : '0%'
-  }
-};
-
-const customStyles2 = {
-  content : {
-    top         : '33%',
-    left        : '25%',
-    right       : '25%',
-    bottom      : '33%',
-  }
-};
-
 export default class Main extends Component {
   constructor() {
     super();
@@ -170,14 +151,15 @@ export default class Main extends Component {
         <Modal 
           isOpen={this.state.showModal2}
           contentLabel="Modal 2"
-          style={customStyles2}>
+          className="modalInput"
+          overlayClassName="overlayInput">
           <div
             onClick={this.handleCloseModal2}
             className="closeButton">
             <i className="fas fa-times-circle"></i>
             &nbsp;&nbsp;Close
           </div>
-          <div className="docContainer">
+          <div className="createContainer">
             <div className="createTitle">Create new history</div>
             <Mutation mutation={ADD_HISTORY}>
               {(saveHistory, { data }) => (
@@ -204,13 +186,15 @@ export default class Main extends Component {
         <Modal 
           isOpen={this.state.showModal}
           contentLabel="Modal 1"
-          style={customStyles}>
+          className="customModal"
+          overlayClassName="customOverlay">
           <div
             onClick={this.handleCloseModal}
             className="closeButton">
             <i className="fas fa-times-circle"></i>
             &nbsp;&nbsp;Close
           </div>
+          <div className="titleModal">Documentation for your code based on {this.state.value} language</div>
           {
             this.state.showModal === true && (
               <Query query={READ_DOC} variables={{syntaxes: this.state.forSearch}}>
@@ -222,13 +206,16 @@ export default class Main extends Component {
                       {
                         data.documentation.map(oneDoc => {
                           return (
-                            oneDoc.doc[0].split(',').map(result => {
-                              return (
-                                <div className="docItem">
-                                  <a href={result} target="_blank">{result}</a>
-                                </div>
-                              )
-                            })
+                            <div className="insideContainer">
+                              <div className="titleDoc">{`Learn ${oneDoc.syntax}`}</div>
+                                {oneDoc.doc[0].split(',').map((result, index) => {
+                                  return (
+                                    <div className="docItem">
+                                      <a href={result} target="_blank" className="textDoc">{`Documentation ${index + 1}`}</a>
+                                    </div>
+                                  )
+                                })}
+                            </div>
                           )
                         })
                       }
@@ -274,7 +261,7 @@ export default class Main extends Component {
             </p>
           </div>
           <div className="rightBar">
-            <div className="selectOption">Select Language to Convert:</div>
+            <div className="selectOption">Select Converted Language:</div>
             <div className="selectOption">
               <select
                 value={this.state.value}

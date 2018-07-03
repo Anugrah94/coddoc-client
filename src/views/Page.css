@@ -491,11 +491,14 @@ img {
 .leftBar {
   display: flex;
   flex-direction: row;
+  margin-top: 15px;
 }
 
 .rightBar {
   display: flex;
   flex-direction: row;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 @media only screen and (min-width: 500px) {
@@ -514,20 +517,33 @@ img {
     justify-content: center;
     margin-bottom: 0px;
   }
+
+  .leftBar {
+    margin-top: 0px;
+  }
+
+  .rightBar {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
 }
 
 /* Modal */
 
 .docContainer {
-  margin-top: 15px;
+  margin-left: 15px;
+  overflow-y: scroll;
+  max-height: 80%;
 }
 
 .docItem {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .closeButton {
   cursor: pointer;
+  margin-top: 15px;
+  margin-left: 15px;
 }
 
 .closeButton:hover {
@@ -539,6 +555,7 @@ img {
   font-family: 'Do Hyeon', sans-serif;
   font-size: 25px;
   display: flex;
+  margin-top: 15px;
   justify-content: center;
 }
 
@@ -573,4 +590,125 @@ img {
   background-color: white;
   color: rgb(250, 140, 26);
   border-color: rgb(250, 140, 26);
+}
+
+.titleDoc {
+  margin-bottom: 15px;
+  font-weight: bold;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 18px;
+}
+
+.customModal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+}
+
+.customOverlay {
+  position: fixed;
+  top: 7.1%;
+  left: 49%;
+  right: 0;
+  bottom: 8.7%;
+  background-color: transparent;
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgb(250, 140, 26);
+}
+
+.textDoc {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  font-family: 'Titillium Web', sans-serif;
+  margin-left: 10px;
+}
+
+.textDoc:hover {
+  padding: 10px;
+  background-color: darkgray;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 0px;
+  border-radius: 10px;
+}
+
+.insideContainer {
+  border-style: solid;
+  border-width: 3px;
+  border-top-color: transparent;
+  border-bottom-color: rgb(250, 140, 26);
+  border-left-color: transparent;
+  border-right-color: transparent;
+  padding-bottom: 5px;
+  margin-top: 10px;
+}
+
+.titleModal {
+  margin-top: 10px;
+  margin-left: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.modalInput {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+}
+
+.overlayInput {
+  position: fixed;
+  top: 36%;
+  left: 15%;
+  right: 15%;
+  bottom: 36%;
+  background-color: transparent;
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgb(250, 140, 26);
+}
+
+.createContainer {
+  margin-left: 15px;
+  max-height: 80%;
+  margin-right: 15px;
+}
+
+@media only screen and (min-width: 500px) {
+  .customOverlay {
+    position: fixed;
+    top: 8%;
+    left: 50%;
+    right: 0;
+    bottom: 5.7%;
+    background-color: transparent;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(250, 140, 26);
+  }
+
+  .docContainer {
+    max-height: 85%;
+  }
+
+  .overlayInput {
+    top: 36%;
+    left: 25%;
+    right: 25%;
+    bottom: 36%;
+  }
+
+  .createTitle {
+    margin-bottom: 15px;
+    font-size: 25px;
+  }
 }
