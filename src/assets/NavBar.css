@@ -22,7 +22,6 @@
   cursor: pointer;
   color: white;
   font-weight: bold;
-  align-self: center;
 }
 
 .rightContent:hover {
@@ -36,14 +35,6 @@
   border: 0.5px solid transparent;
   border-radius: 5px;
   margin-right: 30px;
-  margin-left: -11px;
-}
-
-.rightContainer {
-  display: flex;
-  flex-direction: row;
-  color: white;
-  font-weight: bold;
 }
 
 .rightContentDropDown {
@@ -66,7 +57,6 @@
   border: 0.5px solid transparent;
   border-radius: 5px;
   margin-right: 30px;
-  margin-left: -11px;
 }
 
 .dropdownContent {
@@ -112,78 +102,4 @@
   justify-content: center;
   align-items: center;
   height: 35em;
-}
-
-.readmeModal {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: white;
-}
-
-.readmeOverlay {
-  position: fixed;
-  z-index: 99;
-  top: 5%;
-  left: 25%;
-  right: 25%;
-  bottom: 10%;
-  background-color: transparent;
-  border-style: solid;
-  border-width: 2px;
-  border-color: rgb(250, 140, 26);
-}
-
-imageContain {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border-style: solid;
-  border-width: 2px;
-  border-top-color: transparent;
-  border-right-color: transparent;
-  border-left-color: transparent;
-  padding-bottom: 10px;
-  border-bottom-color: rgb(250, 140, 26);
-}
-
-.hintImage1 {
-  width: 350px;
-  height: auto;
-}
-
-.hintImage2 {
-  width: 320px;
-  height: auto;
-}
-
-.titleHint {
-  font-weight: bold;
-  margin-bottom: 10px;
-  margin-top: 10px;
-}
-
-@media only screen and (min-width: 1000px) {
-  .hintImage1 {
-    width: 430px;
-    height: auto;
-  }
-  
-  .hintImage2 {
-    width: 400px;
-    height: auto;
-  }
-}
-
-@media only screen and (min-width: 1300px) {
-  .hintImage1 {
-    width: 500px;
-    height: auto;
-  }
-  
-  .hintImage2 {
-    width: 500px;
-    height: auto;
-  }
 }

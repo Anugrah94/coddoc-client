@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 
 import { READ_USER, READ_HISTORY } from '../graphql/queryType';
 import { ADD_HISTORY } from '../graphql/mutationType';
+
 import NavBar from '../components/NavBar';
 import userStore from '../store/user';
 import Loading from '../components/Loading';
@@ -120,7 +121,7 @@ export default class Profile extends Component {
                 <div className="profile">
                   <p className="name">{ data.user.full_name }</p>
                   <p className="username">{ `@${data.user.username}` }</p>
-                  <img src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/256/person-icon.png" alt="personIcon"/>
+                  <img className="profic" src="https://image.flaticon.com/icons/svg/17/17969.svg" alt="personIcon"/>
                 </div>
                 <div className="history">
                   <div className="histContent">
@@ -148,7 +149,7 @@ export default class Profile extends Component {
                                     <i className="fas fa-history"></i>
                                     &nbsp;&nbsp;{ data.history.name }
                                   </div>
-                                  <div>Testing</div>
+                                  <div>&nbsp;</div>
                                 </div>
                               )
                             }}

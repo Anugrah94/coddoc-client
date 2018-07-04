@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 import './NavBar.css';
 import userStore from '../store/user'
 
 @observer class NavBar extends Component {
+  constructor() {
+    super();
+    this.state = {
+      showModal: false
+    }
+  };
   logOut = () => {
     userStore.logOut();
     this.props.props.history.push('/');
@@ -23,6 +29,16 @@ import userStore from '../store/user'
     } else {
       this.props.props.history.push('/');
     }
+  }
+
+  handleOpenModal = () => {
+    this.setState({
+      showModal: true
+    })
+  }
+  
+  handleCloseModal = () => {
+    this.setState({ showModal: false });
   }
 
   render() {
@@ -48,7 +64,7 @@ import userStore from '../store/user'
           </div>
         </div>
       );
-    } else if(userStore.loginStatus === false) {
+    } else if(userStore.loginStatus === false && userStore.statusMainPage === false) {
       return (
         <div className="navbar">
           <div className="leftContent" onClick={() => this.backToHome()}>
@@ -62,26 +78,44 @@ import userStore from '../store/user'
           </div>
         </div>
       );
+    } else if(userStore.loginStatus === false && userStore.statusMainPage === true) {
+      return (
+        <div className="navbar">
+          <div className="leftContent" onClick={() => this.backToHome()}>
+            <img src="https://i.imgur.com/f0Y5Ssm.png" alt="logoNavbar" className="navbarLogo"/>
+          </div>
+          <div className="rightContainer">
+            <div className="rightContent" onClick={() => this.logIn()}>
+              <p>
+                <i className="fas fa-sign-in-alt"></i>
+                &nbsp;&nbsp;Login
+              </p>
+            </div>
+          </div>
+        </div>
+      );
     } else {
       return (
         <div className="navbar">
           <div className="leftContent" onClick={() => this.backToHome()}>
             <img src="https://i.imgur.com/f0Y5Ssm.png" alt="logoNavbar" className="navbarLogo"/>
           </div>
-          <div className="rightContentDropDown">
-            <p><i className="fas fa-user-circle"></i>&nbsp;&nbsp;My Account</p>
-            <div className="dropdownContent">
-              <Link className="link" to={ '/main/profile' }>
-                <p className="item">
-                  <i className="fas fa-user-circle"></i>
-                  &nbsp;&nbsp;Profile
+          <div className="rightContainer">
+            <div className="rightContentDropDown">
+              <p><i className="fas fa-user-circle"></i>&nbsp;&nbsp;My Account</p>
+              <div className="dropdownContent">
+                <Link className="link" to={ '/main/profile' }>
+                  <p className="item">
+                    <i className="fas fa-user-circle"></i>
+                    &nbsp;&nbsp;Profile
+                  </p>
+                </Link>
+                <p className="item"
+                  onClick={() => this.logOut()}>
+                  <i className="fas fa-sign-out-alt"></i>
+                  &nbsp;&nbsp;Logout
                 </p>
-              </Link>
-              <p className="item"
-                onClick={() => this.logOut()}>
-                <i className="fas fa-sign-out-alt"></i>
-                &nbsp;&nbsp;Logout
-              </p>
+              </div>
             </div>
           </div>
         </div>

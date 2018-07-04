@@ -10,7 +10,7 @@ import AlertTemplate from "react-alert-template-basic";
 import client from './graphql/client'
 
 const options = {
-  timeout: 5000,
+  timeout: 3000,
   position: "bottom center"
 };
 

@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 export default class NotFound extends Component {
   render() {
     return (
-      <div>
-        Ga ketemu
+      <div className="loginForm">
+        You are lost, please go back
       </div>
     )
   }
