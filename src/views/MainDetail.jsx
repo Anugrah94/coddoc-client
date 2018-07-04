@@ -20,7 +20,8 @@ import userStore from '../store/user';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 
-import { pythonjs, forScrap } from '../store/convert';
+import { pythonjs, forScrapPython } from '../store/convertJsPython';
+import { rubyjs, forScrapRuby } from '../store/convertJsRuby';
 
 export default class Main extends Component {
   constructor() {
@@ -59,11 +60,21 @@ export default class Main extends Component {
   }
 
   handleOpenModal = () => {
-    let newArray = forScrap(this.state.input);
-    this.setState({
-      forSearch: newArray,
-      showModal: true
-    })
+    if (this.state.value === 'python') {
+      let newArray = forScrapPython(this.state.input);
+
+      this.setState({
+        forSearch: newArray,
+        showModal: true
+      });
+    } else {
+      let newArray = forScrapRuby(this.state.input);
+
+      this.setState({
+        forSearch: newArray,
+        showModal: true
+      });
+    }
   }
   
   handleCloseModal = () => {
@@ -87,13 +98,18 @@ export default class Main extends Component {
       snippet: 'loading...',
       doc: 'loading...'
     })
-    if(sessionStorage.getItem('language') === 'python'){
-      let output = pythonjs(this.state.input)
+    if(this.state.value === 'python'){
+      let output = pythonjs(this.state.input);
+
       this.setState({
         snippet: output
-      })
+      });
     } else {
-      console.log('ga ada')
+      let output = rubyjs(this.state.input);
+
+      this.setState({
+        snippet: output
+      });
     }
     this.updateData()
   }

@@ -1,15 +1,17 @@
 export const pythonjs = (input) => {
-  console.log(input);
   let str = convert(input);
 
   let func            = str.replace(/function/gi, 'def');
   let funcname        = func.replace(/[' ']+,+[(]/gi, '(');
   let funcname2       = funcname.replace(/,+[(]/gi, '(');
-  let pythonClass     = funcname2.replace(/constructor+[(]/gi, 'def __init__(self, ');
+  let pythonClass     = funcname2.replace(/constructor/g, '__init__');
   let pythonThis      = pythonClass.replace(/this./gi, 'self.');
   let pythonInstance  = pythonThis.replace(/[' ']+new+['  ']/gi, ' ');
-  let methodPython    = pythonInstance.replace(/;+[(]/gi, '(self, ');
-  let startBracket    = methodPython.replace(/[' ']+{/gi, ':');
+  let selfPython      = pythonInstance.replace(/[' ']+;+[(]+;/g, '(self');
+  let selfPython2     = selfPython.replace(/;+[(]+;/g, '(self');
+  let methodPython    = selfPython2.replace(/[' ']+;+[(]/g, '(self, ');
+  let methodPython2   = methodPython.replace(/;+[(]/gi, '(self, ');
+  let startBracket    = methodPython2.replace(/[' ']+{/gi, ':');
   let startBracket2   = startBracket.replace(/{/gi, ':');
   let consolelog      = startBracket2.replace(/console.log/gi, 'print');
   let append          = consolelog.replace(/.push/gi, '.append');
@@ -25,7 +27,7 @@ export const pythonjs = (input) => {
   let whileloop       = loop2.replace(/while+[(]/gi, 'while ');
   let whileloop2      = whileloop.replace(/while+[' ']+[(]/gi, 'while ');
   let endbracket      = whileloop2.replace(/[)]+,+:/gi, ':');
-  let result          = endbracket.replace(/[^\a-z\A-Z\,\:\=\+\>\<\;\&\|\!\/\.\"\'\()\w\s]/gi, ' ');
+  let result          = endbracket.replace(/[^\a-z\A-Z\,\:\=\-\+\>\<\;\&\|\!\/\.\%\"\'\(\)\]\[\w\s]/gi, ' ');
   let and             = result.replace(/&&/gi, 'and');
   let or              = and.replace(/[|]+[|]/gi, 'or');
   let is              = or.replace(/===/gi,'is');
@@ -43,13 +45,15 @@ export const pythonjs = (input) => {
   let negation        = varlet.replace(/[.]+[,]/gi, '!');
   let semicolon       = negation.replace(/[;]/gi, '');
   let length          = semicolon.replace(/.length/g, '');
-  let coma            = length.replace(/[,]+[,]/gi, '');
+  let upper           = length.replace(/.toUpperCase+[(]+[)]/g, '.upper()');
+  let lower           = upper.replace(/.toLowerCase+[(]+[)]/g, '.lower()');
+  let coma            = lower.replace(/[,]+[,]/gi, '');
 
   return coma;
 }
 
 function funcChange (input) {
-  let funcStr = input.split(')');
+  let funcStr = input.split('\n');
 
   for (let i = 0; i < funcStr.length; i++) {
     if (funcStr[i].includes('function') === true) {
@@ -65,7 +69,7 @@ function funcChange (input) {
     }
   }
 
-  return funcStr.join(')');
+  return funcStr.join('\n');
 }
 
 function consolelog (input) {
@@ -84,6 +88,41 @@ function consolelog (input) {
   return consolog.join('\n');
 }
 
+function forScooping (input) {
+  let convert = input.split('\n');
+  let firstIndex;
+  let lastIndex;
+
+  for (let i = 0; i < convert.length; i++) {
+    if (convert[i].includes('for') === true) {
+      firstIndex = i;
+    } else if (convert[i].includes('}   ') === true) {
+      lastIndex = i;
+    }
+  }
+
+  for (let i = firstIndex; i <= lastIndex; i++) {
+    let arr = [];
+    if (convert[i].includes('[') === true && convert[i].includes(']') === true && convert[i].includes('console.log') === false) {
+      let step1 = convert[i].split(']');
+      let indentation = step1[0].split(' ');
+
+      for (let j = 0; j < indentation.length; j++) {
+        if (indentation[j] === '') {
+          arr.push(' ');
+        }
+      }
+
+      let step2 = step1[0].split('[')
+      arr.push(step2[step2.length-1])
+      arr.push(step1[step1.length-1])
+      
+      convert[i] = arr.join('');
+    }
+  }
+
+  return convert.join('\n');
+}
 
 function equalChange (input) {
   let str = funcChange(input);
@@ -103,32 +142,64 @@ function equalChange (input) {
 }
 
 function forLoop (input) {
-  let loop = input.split('{');
+  let loop = input.split('\n');
 
   for (let i = 0; i < loop.length; i++) {
     if (loop[i].includes('for') === true && loop[i].includes('++') === true) {
       let split = loop[i].split(';');
-      let index0 = split[0].split(' ');
-      let index1 = split[1].split(' ');
+      let index00 = split[0].split('=')[0].split(' ');
+      let index01 = split[0].split('=')[1].split(' ');
+      let index1 = split[1].replace(/[^\a-z\A-Z\.\;\]\[\w\s]/gi, ' ').split(' ');
       let regex = /[a-zA-Z]/gi.test(index1[index1.length - 1]);
-      let indentation = index0.join(' ').split('for');
+      let indentation = split[0].split(' ').join(' ').split('for');
+      let result0 = [];
+
+      for (let i = 0; i < index00.length; i++) {
+        if (index00[i] !== '') {
+          result0.push(index00[i]);
+        }
+      }
       
       if (!regex) {
-        loop[i] = `${indentation[0]}for ${index1[1]} in range(${index0[index0.length - 1]}, ${index1[index1.length - 1]}))`; 
+        loop[i] = `${indentation[0]}for ${result0[result0.length - 1]} in range(${index01[index01.length - 1]}, ${index1[index1.length - 1]}, +1)):`; 
       } else {
-        loop[i] = `${indentation[0]}for ${index1[1]} in ${index1[index1.length - 1]}`; 
+        loop[i] = `${indentation[0]}for ${index1[1]} in ${index1[index1.length - 1]}:`; 
+      }
+    } else if (loop[i].includes('for') === true && loop[i].includes('--') === true) {
+      let split = loop[i].split(';');
+      let index00 = split[0].split('=')[0].split(' ');
+      let index01 = split[0].split('=')[1].split(' ');
+      let index1 = split[1].replace(/[^\a-z\A-Z\.\;\]\[\w\s]/gi, ' ').split(' ');
+      let regexString = /[a-zA-Z]/gi.test(index1[index1.length - 1]);
+      let regexNumber = /[1-9]/gi.test(index01[index01.length - 1]);
+      let indentation = split[0].split(' ').join(' ').split('for');
+      let result0 = [];
+
+      for (let i = 0; i < index00.length; i++) {
+        if (index00[i] !== '') {
+          result0.push(index00[i]);
+        }
+      }
+      
+      if (!regexString && !regexNumber) {
+        loop[i] = `${indentation[0]}for ${index1[1]} in reversed(${index01[index01.length - 1]})):`; 
+      } else if (regexString, !regexNumber) {
+        loop[i] = `${indentation[0]}for ${index1[1]} in ${index01[index01.length - 1]}:`; 
+      } else if (regexString, regexNumber) {
+        loop[i] = `${indentation[0]}for ${result0[result0.length - 1]} in range(${index1[index1.length - 1]}, ${index01[index01.length - 1]}, -1)):`; 
       }
     }
   }
 
-  return loop.join('{');
+  return loop.join('\n');
 }
 
 function changeInput (input) {
-  let loop = forLoop(input)
+  let squareBracket = forScooping(input);
+  let loop = forLoop(squareBracket);
   let str = equalChange(loop);
   let consolog = consolelog(str);
-  let array = consolog.split('{');
+  let array = consolog.split('\n');
 
   for (let i = 0; i < array.length; i++) {
     if (array[i].includes('if') === true || array[i].includes('for') === true || array[i].includes('while') === true) {
@@ -144,7 +215,7 @@ function changeInput (input) {
     }
   }
 
-  return array.join('{');
+  return array.join('\n');
 }
 
 function changeClass (input) {
@@ -155,18 +226,19 @@ function changeClass (input) {
   for (let i = 0; i < convert.length; i++) {
     if (convert[i].includes('class') === true) {
       firstIndex = i;
-    } else if (convert[i].includes('  }') === true) {
+    } else if (convert[i].includes('}') === true) {
       lastIndex = i;
     }
   }
 
-  console.log(firstIndex, lastIndex)
-
   for (let i = firstIndex; i <= lastIndex; i++) {
     let string = '';
-    if (convert[i].includes(') {') === true || convert[i].includes('){') === true && convert[i].includes('constructor') === false) {
+
+    if (convert[i].includes(') {') && !convert[i].includes('function') || convert[i].includes('){') && !convert[i].includes('function')) {
       for (let j = 0; j < convert[i].length; j++) {
-        if (convert[i][j] === '(') {
+        if (convert[i][j] === '(' && convert[i][j + 1] === ')') {
+          string += ';' + convert[i][j] + ';';
+        } else if (convert[i][j] === '(') {
           string += ';' + convert[i][j];
         } else {
           string += convert[i][j];
@@ -181,15 +253,13 @@ function changeClass (input) {
 }
 
 function convert (input) {
-  let classConverting = changeClass(input);
-  let inputConverting = changeInput(classConverting);
+  let inputConverting = changeInput(input);
+  let classConverting = changeClass(inputConverting);
 
-  console.log(inputConverting);
-
-  return inputConverting;
+  return classConverting;
 };
 
-export const forScrap = (input) => {
+export const forScrapPython = (input) => {
   const library = [
     'function',
     'var',

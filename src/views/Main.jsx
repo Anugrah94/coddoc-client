@@ -4,9 +4,6 @@ import Modal from 'react-modal';
 import { Query } from 'react-apollo';
 import brace from 'brace';
 
-import { pythonjs, forScrap } from '../store/convert';
-import { READ_DOC } from '../graphql/queryType';
-
 import 'brace/mode/java';
 import 'brace/mode/ruby';
 import 'brace/mode/python';
@@ -16,6 +13,9 @@ import 'brace/theme/xcode';
 import './Page.css';
 import userStore from '../store/user';
 import NavBar from '../components/NavBar';
+import { pythonjs, forScrapPython } from '../store/convertJsPython';
+import { rubyjs, forScrapRuby } from '../store/convertJsRuby';
+import { READ_DOC } from '../graphql/queryType';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 
@@ -40,11 +40,21 @@ export default class Main extends Component {
   }
 
   handleOpenModal = () => {
-    let newArray = forScrap(this.state.input);
-    this.setState({
-      forSearch: newArray,
-      showModal: true
-    })
+    if (this.state.value === 'python') {
+      let newArray = forScrapPython(this.state.input);
+
+      this.setState({
+        forSearch: newArray,
+        showModal: true
+      });
+    } else {
+      let newArray = forScrapRuby(this.state.input);
+
+      this.setState({
+        forSearch: newArray,
+        showModal: true
+      });
+    }
   }
   
   handleCloseModal = () => {
@@ -63,12 +73,17 @@ export default class Main extends Component {
       doc: 'loading...'
     })
     if(this.state.value === 'python'){
-      let output = pythonjs(this.state.input)
+      let output = pythonjs(this.state.input);
+
       this.setState({
         snippet: output
-      })
+      });
     } else {
-      console.log('ga ada')
+      let output = rubyjs(this.state.input);
+
+      this.setState({
+        snippet: output
+      });
     }
   }
 
