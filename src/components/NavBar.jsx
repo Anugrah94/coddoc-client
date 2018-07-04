@@ -64,7 +64,7 @@ import userStore from '../store/user'
           </div>
         </div>
       );
-    } else if(userStore.loginStatus === false && userStore.statusMainPage === false) {
+    } else if(userStore.loginStatus === false) {
       return (
         <div className="navbar">
           <div className="leftContent" onClick={() => this.backToHome()}>
@@ -75,22 +75,6 @@ import userStore from '../store/user'
               <i className="fas fa-sign-in-alt"></i>
               &nbsp;&nbsp;Login
             </p>
-          </div>
-        </div>
-      );
-    } else if(userStore.loginStatus === false && userStore.statusMainPage === true) {
-      return (
-        <div className="navbar">
-          <div className="leftContent" onClick={() => this.backToHome()}>
-            <img src="https://i.imgur.com/f0Y5Ssm.png" alt="logoNavbar" className="navbarLogo"/>
-          </div>
-          <div className="rightContainer">
-            <div className="rightContent" onClick={() => this.logIn()}>
-              <p>
-                <i className="fas fa-sign-in-alt"></i>
-                &nbsp;&nbsp;Login
-              </p>
-            </div>
           </div>
         </div>
       );
