@@ -747,3 +747,9 @@ img {
 .desc {
   color: darkslategrey;
 }
+
+.profic {
+  background-color: aquamarine;
+  padding: 20px;
+  border-radius: 100px;
+}
