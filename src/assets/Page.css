@@ -132,14 +132,14 @@
 
 .smallBoxLeft {
   width: 48%;
-  height: 528px;
+  height: 100%;
   display: block;
   counter-reset: my-sec-counter;
 }
 
 .smallBoxRight {
   width: 49%;
-  height: 50px;
+  height: 490px;
   background-color: black;
 }
 
@@ -159,8 +159,15 @@
 }
 
 .forOutput {
+  margin-top: 10px;
+  margin-left: 10px;
   width: 100%;
   font-family: 'Courier', Courier, monospace;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: white;
+  resize: none;
 }
 
 .footerPosition {
@@ -208,11 +215,6 @@
 
 .inputItem {
   margin-bottom: 15px;
-  padding: 10px;
-  width: 200px;
-}
-
-.inputItemRegister {
   padding: 10px;
   width: 200px;
 }
@@ -351,9 +353,8 @@ img {
 
 .history {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  min-height: 318px;
 }
 
 .histories {
@@ -438,7 +439,6 @@ img {
   border-radius: 10px;
   border-color: transparent;
   padding: 5px;
-  font-size: 18px;
 }
 
 .buttonToConvert:hover {
@@ -508,7 +508,7 @@ img {
   margin-bottom: 15px;
 }
 
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 500px) {
   .topBar {
     flex-direction: row;
     margin-left: 15px;
@@ -532,16 +532,6 @@ img {
   .rightBar {
     margin-top: 0px;
     margin-bottom: 0px;
-  }
-
-  .buttonToConvert {
-    font-size: 14px;
-  }
-}
-
-@media only screen and (min-width: 1300px) {
-  .buttonToConvert {
-    font-size: 17px;
   }
 }
 
@@ -627,7 +617,6 @@ img {
 
 .customOverlay {
   position: fixed;
-  z-index: 99;
   top: 7.1%;
   left: 49%;
   right: 0;
@@ -685,7 +674,6 @@ img {
 
 .overlayInput {
   position: fixed;
-  z-index: 99;
   top: 36%;
   left: 15%;
   right: 15%;
@@ -730,20 +718,4 @@ img {
     margin-bottom: 15px;
     font-size: 25px;
   }
-}
-
-.customAlert {
-  color: rgb(250, 140, 26);
-}
-
-.inputPart {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 15px;
-  word-wrap: break-word;
-  max-width: 230px;
-}
-
-.desc {
-  color: darkslategrey;
 }

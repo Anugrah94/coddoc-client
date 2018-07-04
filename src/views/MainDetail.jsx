@@ -6,13 +6,16 @@ import { Query } from 'react-apollo';
 import axios from 'axios';
 import { Mutation } from 'react-apollo';
 
-import 'brace/mode/java';
-import 'brace/theme/github';
+import 'brace/mode/ruby';
+import 'brace/mode/python';
+import 'brace/theme/tomorrow';
+import 'brace/theme/xcode';
 
-import NavBar from '../components/NavBar';
 import { READ_HISTORY, READ_DOC } from '../graphql/queryType';
 import { ADD_HISTORY } from '../graphql/mutationType';
-import '../views/Page.css';
+
+import NavBar from '../components/NavBar';
+import './Page.css';
 import userStore from '../store/user';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
@@ -283,13 +286,14 @@ export default class Main extends Component {
                 className="forInput"
                 mode="javascript"
                 name="input"
+                theme="tomorrow"
                 onChange={this.getDataInput}
-                fontSize={14}
+                fontSize={20}
                 showPrintMargin={true}
                 showGutter={true}
                 highlightActiveLine={true}
                 value={this.state.input}
-                height='490px'
+                height='530px'
                 width='620vr'
                 setOptions={{
                   enableBasicAutocompletion: false,
@@ -301,13 +305,25 @@ export default class Main extends Component {
             </div>
             <div className="midBox"></div>
             <div className="smallBoxRight">
-              <TextareaAutosize
+              <AceEditor
                 className="forOutput"
-                type="text"
-                placeholder="result..."
-                style={{ maxHeight: 500, maxWidth: 616 }}
-                value={this.state.snippet}>
-              </TextareaAutosize>
+                mode={ this.state.value === 'python' ? 'python' : 'ruby' }
+                theme="xcode"
+                fontSize={20}
+                showPrintMargin={true}
+                showGutter={true}
+                highlightActiveLine={true}
+                value={this.state.snippet}
+                readOnly={true}
+                height='530px'
+                width='620vr'
+                setOptions={{
+                  enableBasicAutocompletion: false,
+                  enableLiveAutocompletion: false,
+                  enableSnippets: false,
+                  showLineNumbers: true,
+                  tabSize: 2,
+                }}/>
             </div>
           </div>
         </div>

@@ -5,8 +5,6 @@ import {
 	Switch
  }
 from 'react-router-dom';
-import { Provider } from "react-alert";
-import AlertTemplate from "react-alert-template-basic";
 
 import Home from './views/Home';
 import Login from './views/Login';
@@ -16,12 +14,7 @@ import Profile from './views/Profile';
 import Register from './views/Register';
 import NotFound from './components/NotFound';
 
-const options = {
-  timeout: 5000,
-  position: "bottom center"
-};
-
-class Index extends Component {
+class App extends Component {
   componentDidMount() {
     let language = sessionStorage.getItem('language');
     if(!language){
@@ -35,14 +28,14 @@ class Index extends Component {
         <Router>
 					<Switch>
 						<Route exact path='/' component={ Home } />
-						<Route path='/login' component={ Login } />
-						<Route path='/register' component={ Register } />
+						<Route exact path='/login' component={ Login } />
+						<Route exact path='/register' component={ Register } />
 						<Route exact path='/main' component={ Main } />
-            <Route path='/main/detail/:id' render={ props => (
+            <Route exact path='/main/detail/:id' render={ props => (
 							<MainDetail {...props}/>
               )
             } />
-            <Route path='/main/profile' component={ Profile } />
+            <Route exact path='/main/profile' component={ Profile } />
             <Route path='*' component= { NotFound } />
 					</Switch>
 				</Router>
@@ -50,15 +43,5 @@ class Index extends Component {
     );
   };
 };
-
-class App extends Component {
-  render() {
-    return (
-      <Provider template={AlertTemplate} {...options}>
-        <Index />
-      </Provider>
-    )
-  }
-}
 
 export default App;

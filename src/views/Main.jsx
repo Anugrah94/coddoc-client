@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
-import TextareaAutosize from 'react-autosize-textarea';
 import AceEditor from 'react-ace';
 import Modal from 'react-modal';
 import { Query } from 'react-apollo';
 import brace from 'brace';
 
-import 'brace/mode/java';
-import 'brace/theme/github';
-
-import '../views/Page.css';
-import NavBar from '../components/NavBar';
 import { pythonjs, forScrap } from '../store/convert';
 import { READ_DOC } from '../graphql/queryType';
+
+import 'brace/mode/java';
+import 'brace/mode/ruby';
+import 'brace/mode/python';
+import 'brace/theme/tomorrow';
+import 'brace/theme/xcode';
+
+import './Page.css';
+import userStore from '../store/user';
+import NavBar from '../components/NavBar';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 
@@ -31,7 +35,8 @@ export default class Main extends Component {
   componentDidMount() {
     this.setState({
       value: sessionStorage.getItem('language')
-    })
+    });
+    userStore.changeMainPage();
   }
 
   handleOpenModal = () => {
@@ -157,14 +162,14 @@ export default class Main extends Component {
               className="forInput"
               mode="javascript"
               name="input"
-              theme="monokai"
+              theme="tomorrow"
               onChange={this.getData}
-              fontSize={14}
+              fontSize={20}
               showPrintMargin={true}
               showGutter={true}
               highlightActiveLine={true}
               value={this.state.input}
-              height='490px'
+              height='530px'
               width='620vr'
               setOptions={{
                 enableBasicAutocompletion: false,
@@ -175,14 +180,26 @@ export default class Main extends Component {
               }}/>
           </div>
           <div className="midBox"></div>
-          <div className="smallBoxRight">
-            <TextareaAutosize
+          <div className="smallBoxLeft">
+          <AceEditor
               className="forOutput"
-              type="text"
-              placeholder="result..."
-              style={{ maxHeight: 476, maxWidth: 625 }}
-              value={this.state.snippet}>
-            </TextareaAutosize>
+              mode={ this.state.value === 'python' ? 'python' : 'ruby' }
+              theme="xcode"
+              fontSize={20}
+              showPrintMargin={true}
+              showGutter={true}
+              highlightActiveLine={true}
+              value={this.state.snippet}
+              readOnly={true}
+              height='530px'
+              width='620vr'
+              setOptions={{
+                enableBasicAutocompletion: false,
+                enableLiveAutocompletion: false,
+                enableSnippets: false,
+                showLineNumbers: true,
+                tabSize: 2,
+              }}/>
           </div>
         </div>
         <div className="footerPosition">

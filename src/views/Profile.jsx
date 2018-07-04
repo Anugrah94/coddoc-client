@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 
 import { READ_USER, READ_HISTORY } from '../graphql/queryType';
 import { ADD_HISTORY } from '../graphql/mutationType';
+
 import NavBar from '../components/NavBar';
 import userStore from '../store/user';
 import Loading from '../components/Loading';

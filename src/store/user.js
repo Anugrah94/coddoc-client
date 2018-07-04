@@ -4,13 +4,16 @@ class User {
   @observable loginStatus = false;
   @observable statusProfilePage = false;
   @observable statusLoginPage = false;
+  @observable statusMainPage = false;
   @observable errorLogin = '';
   @observable oneId = null;
+  @observable errorRegister = '';
 
   logIn() {
     this.loginStatus = true;
     this.statusLoginPage = false;
     this.statusProfilePage = false;
+    this.statusMainPage = false;
   };
 
   logOut() {
@@ -20,11 +23,16 @@ class User {
 
   wantLogin() {
     this.statusLoginPage = true;
+    this.statusMainPage = false;
   };
 
   seeProfile() {
     this.statusProfilePage = true;
   };
+
+  changeMainPage() {
+    this.statusMainPage = true;
+  }
 
   resetAll() {
     this.loginStatus = false;
@@ -33,11 +41,19 @@ class User {
   }
 
   setErrorLogin() {
-    this.errorLogin = 'wrong username/password';
+    this.errorLogin = 'wrong username or password';
   }
 
   clearErrorLogin() {
     this.errorLogin = '';
+  }
+
+  setErrorRegister(input) {
+    this.errorRegister = input;
+  }
+
+  clearErrorRegister() {
+    this.errorRegister = '';
   }
 
   setId(id) {
