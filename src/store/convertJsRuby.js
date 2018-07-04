@@ -2,8 +2,8 @@ export const rubyjs = (input) => {
   let str = convert(input)
 
   let func              = str.replace(/function/g, 'def');
-  let initialize        = func.replace(/constructor+[' ']/g, 'def initialize ');
-  let initialize2       = initialize.replace(/constructor/g, 'def initialize ');
+  let initialize        = func.replace(/constructor+[' ']/g, 'initialize ');
+  let initialize2       = initialize.replace(/constructor/g, 'initialize ');
   let thisRuby          = initialize2.replace(/this./g, '@');
   let funcBracket       = thisRuby.replace(/[' ']+[,]+[(]/g, ' (');
   let funcBracket2      = funcBracket.replace(/[,]+[(]/g, ' (');
@@ -15,8 +15,9 @@ export const rubyjs = (input) => {
   let elsif             = endElse.replace(/else+[' ']+if/g, 'elsif');
   let endelsif          = elsif.replace(/end+[' ']+elsif/g, 'elsif');
   let equal             = endelsif.replace(/===/g, '==');
+  let defWhile          = equal.replace(/[' ']+defwhile/g, 'while');
 
-  let forloop = forLoop(equal);
+  let forloop = forLoop(defWhile);
   let semicolon = forloop.replace(/[;]/g, '')
   return semicolon;
 }
@@ -78,8 +79,8 @@ function forLoop (input) {
       let lineFor = loop[i].split(';');
       let lineFor0Step1 = lineFor[0].split('=');
       let lineFor0Step2 = lineFor0Step1[0].split(' ');
-      console.log('---',lineFor0Step2)
-      for(let i=0;i<lineFor0Step2.length;i++) {
+
+      for(let i=0;i<lineFor0Step2.length - 6;i++) {
         if(lineFor0Step2[i] === '') {
           arr.push(' ')
         }
@@ -176,7 +177,8 @@ function forLoop (input) {
       let lineFor = loop[i].split(';');
       let lineFor0Step1 = lineFor[0].split('=');
       let lineFor0Step2 = lineFor0Step1[0].split(' ');
-      for(let i=0;i<lineFor0Step2.length - 1;i++) {
+
+      for(let i=0;i<lineFor0Step2.length - 5;i++) {
         if(lineFor0Step2[i] === '') {
           arr.push(' ')
         }
@@ -283,17 +285,13 @@ function changeClass (input) {
   for (let i = 0; i < convert.length; i++) {
     if (convert[i].includes('class') === true) {
       firstIndex = i;
-    } else if (convert[i].includes('} ') === true) {
+    } else if (convert[i].includes('}') === true) {
       lastIndex = i;
     }
   }
 
-  console.log(convert);
-
   for (let i = firstIndex; i <= lastIndex; i++) {
-    if (convert[i].includes(') {') && !convert[i].includes('constructor')) {
-      convert[i] = '  function' + convert[i];
-    } else if (convert[i].includes('){') && !convert[i].includes('constructor')) {
+    if (convert[i].includes(') {') && !convert[i].includes('function') || convert[i].includes('){') && !convert[i].includes('function')) {
       convert[i] = '  function' + convert[i];
     }
   }
