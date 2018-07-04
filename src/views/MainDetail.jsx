@@ -308,7 +308,7 @@ export default class Main extends Component {
               <AceEditor
                 className="forOutput"
                 mode={ this.state.value === 'python' ? 'python' : 'ruby' }
-                theme="xcode"
+                theme="tomorrow"
                 fontSize={20}
                 showPrintMargin={true}
                 showGutter={true}
