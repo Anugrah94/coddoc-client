@@ -226,7 +226,7 @@ function changeClass (input) {
   for (let i = 0; i < convert.length; i++) {
     if (convert[i].includes('class') === true) {
       firstIndex = i;
-    } else if (convert[i].includes('} ') === true) {
+    } else if (convert[i].includes('}') === true) {
       lastIndex = i;
     }
   }

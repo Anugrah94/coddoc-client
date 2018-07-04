@@ -35,6 +35,17 @@ function funcChange (input) {
         }
       }
       funcStr[i] = string;
+    } else if (funcStr[i].includes('while') === true) {
+      let string = '';
+      for (let j = 0; j < funcStr[i].length; j++) {
+        if (funcStr[i][j] === '(') {
+          string += ',' + funcStr[i][j];
+        } else {
+          string += funcStr[i][j];
+        }
+      }
+
+      funcStr[i] = string;
     }
   }
 
@@ -165,7 +176,7 @@ function forLoop (input) {
       let lineFor = loop[i].split(';');
       let lineFor0Step1 = lineFor[0].split('=');
       let lineFor0Step2 = lineFor0Step1[0].split(' ');
-      for(let i=0;i<lineFor0Step2.length;i++) {
+      for(let i=0;i<lineFor0Step2.length - 1;i++) {
         if(lineFor0Step2[i] === '') {
           arr.push(' ')
         }
@@ -176,7 +187,7 @@ function forLoop (input) {
           temp.push(lineFor0Step2[i])
         }
       }
-      arr.push(' for');
+      arr.push('for');
       arr.push(' ',temp[temp.length-1]);
       arr.push(' in ');
       let clearSpace = lineFor0Step1[lineFor0Step1.length-1].replace(/[' ']/gi, '')
