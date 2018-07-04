@@ -732,6 +732,24 @@ img {
   }
 }
 
+@media only screen and (min-width: 1000px) {  
+  .overlayInput {
+    top: 25%;
+    left: 15%;
+    right: 15%;
+    bottom: 36%;
+  }
+}
+
+@media only screen and (min-width: 1300px) {  
+  .overlayInput {
+    top: 30%;
+    left: 25%;
+    right: 25%;
+    bottom: 40%;
+  }
+}
+
 .customAlert {
   color: rgb(250, 140, 26);
 }

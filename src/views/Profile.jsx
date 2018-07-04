@@ -149,7 +149,7 @@ export default class Profile extends Component {
                                     <i className="fas fa-history"></i>
                                     &nbsp;&nbsp;{ data.history.name }
                                   </div>
-                                  <div>Testing</div>
+                                  <div>&nbsp;</div>
                                 </div>
                               )
                             }}
