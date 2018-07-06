@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import TextareaAutosize from 'react-autosize-textarea';
 import AceEditor from 'react-ace';
 import Modal from 'react-modal';
 import { Query } from 'react-apollo';
 import axios from 'axios';
-import { Mutation } from 'react-apollo';
 
 import 'brace/mode/ruby';
 import 'brace/mode/python';
@@ -12,7 +10,6 @@ import 'brace/theme/tomorrow';
 import 'brace/theme/xcode';
 
 import { READ_HISTORY, READ_DOC } from '../graphql/queryType';
-import { ADD_HISTORY } from '../graphql/mutationType';
 
 import NavBar from '../components/NavBar';
 import './Page.css';
@@ -130,14 +127,6 @@ export default class Main extends Component {
       })
   };
 
-  handleOpenModal2 = () => {
-    this.setState({ showModal2: true });
-  };
-  
-  handleCloseModal2 = () => {
-    this.setState({ showModal2: false });
-  };
-
   handleSubmit = (e, saveHistory) => {
     e.preventDefault();
     if(this.state.historyName.length > 0) {
@@ -167,41 +156,6 @@ export default class Main extends Component {
     return (
       <div>
         <NavBar props={this.props}/>
-        <Modal 
-          isOpen={this.state.showModal2}
-          contentLabel="Modal 2"
-          className="modalInput"
-          overlayClassName="overlayInput">
-          <div
-            onClick={this.handleCloseModal2}
-            className="closeButton">
-            <i className="fas fa-times-circle"></i>
-            &nbsp;&nbsp;Close
-          </div>
-          <div className="createContainer">
-            <div className="createTitle">Create new history</div>
-            <Mutation mutation={ADD_HISTORY}>
-              {(saveHistory, { data }) => (
-                <form
-                  className="createForm"
-                  onSubmit={e => this.handleSubmit(e, saveHistory)}>
-                <input
-                  type="text"
-                  placeholder="history name..."
-                  className="inputForm"
-                  name="historyName"
-                  value={this.state.historyName}
-                  onChange={this.getData}/>
-                <button type="submit" className="formButton">Submit</button>
-                {data && (
-                  this.props.history.push(`/main/detail/${data.saveHistory._id}`),
-                  window.location.reload()
-                )}
-              </form>
-              )}
-            </Mutation>
-          </div>
-        </Modal>
         <Modal 
           isOpen={this.state.showModal}
           contentLabel="Modal 1"
@@ -247,12 +201,6 @@ export default class Main extends Component {
         </Modal>
         <div className="topBar">
           <div className="topBarLeft">
-            <p
-              className="buttonToConvert"
-              onClick={this.handleOpenModal2}>
-              <i className="fas fa-file"></i>
-              &nbsp;&nbsp;Create new
-            </p>
             <Query query={READ_HISTORY} variables={{_id: this.props.match.params.id}}>
               {({ loading, error, data}) => {
                 if(loading) return '';

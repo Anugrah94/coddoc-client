@@ -16,8 +16,12 @@ export const rubyjs = (input) => {
   let endelsif          = elsif.replace(/end+[' ']+elsif/g, 'elsif');
   let equal             = endelsif.replace(/===/g, '==');
   let defWhile          = equal.replace(/[' ']+defwhile/g, 'while');
+  let none              = defWhile.replace(/null/gi, 'nil');
+  let variable          = none.replace(/var+[' ']/gi, '');
+  let constanta         = variable.replace(/const+[' ']/gi, '');
+  let varlet            = constanta.replace(/let+[' ']/gi, '');
 
-  let forloop = forLoop(defWhile);
+  let forloop = forLoop(varlet);
   let semicolon = forloop.replace(/[;]/g, '')
   return semicolon;
 }
@@ -103,7 +107,7 @@ function forLoop (input) {
         let lineFor1Step2 = lineFor1Step1.split('<=')
         if(lineFor1Step2[1].includes('.') === true) {
           let lineFor1Step3 = lineFor1Step2[1].split('.');
-          arr.push('..',lineFor1Step3[0]);
+          arr.push('..',lineFor1Step3[0], '.length');
           let reg1 = arr[arr.length-1].replace(/[' ']/g, '')
           let reg2 = arr[arr.length-3].replace(/[' ']/g, '')
           arr[arr.length - 1] = reg1
@@ -121,7 +125,7 @@ function forLoop (input) {
         let lineFor1Step2 = lineFor1Step1.split('>=')
         if(lineFor1Step2[1].includes('.') === true) {
           let lineFor1Step3 = lineFor1Step2[1].split('.');
-          arr.push('..',lineFor1Step3[0]);
+          arr.push('..',lineFor1Step3[0], '.length');
           let reg1 = arr[arr.length-1].replace(/[' ']/g, '')
           let reg2 = arr[arr.length-3].replace(/[' ']/g, '')
           arr[arr.length - 1] = reg1
@@ -139,7 +143,7 @@ function forLoop (input) {
         let lineFor1Step2 = lineFor1Step1.split('<')
         if(lineFor1Step2[1].includes('.') === true) {
           let lineFor1Step3 = lineFor1Step2[1].split('.');
-          arr.push('...',lineFor1Step3[0]);
+          arr.push('...',lineFor1Step3[0], '.length');
           let reg1 = arr[arr.length-1].replace(/[' ']/g, '')
           let reg2 = arr[arr.length-3].replace(/[' ']/g, '')
           arr[arr.length - 1] = reg1
@@ -157,7 +161,7 @@ function forLoop (input) {
         let lineFor1Step2 = lineFor1Step1.split('>')
         if(lineFor1Step2[1].includes('.') === true) {
           let lineFor1Step3 = lineFor1Step2[1].split('.');
-          arr.push('...',lineFor1Step3[0]);
+          arr.push('...',lineFor1Step3[0], '.length');
           let reg1 = arr[arr.length-1].replace(/[' ']/g, '')
           let reg2 = arr[arr.length-3].replace(/[' ']/g, '')
           arr[arr.length - 1] = reg1
@@ -201,7 +205,7 @@ function forLoop (input) {
         let lineFor1Step2 = lineFor1Step1.split('<=')
         if(lineFor1Step2[1].includes('.') === true) {
           let lineFor1Step3 = lineFor1Step2[1].split('.');
-          arr.push('..',lineFor1Step3[0], ').to_a.reverse');
+          arr.push('..',lineFor1Step3[0], '.length', ').to_a.reverse');
           let reg1 = arr[arr.length-2].replace(/[' ']/g, '')
           let reg2 = arr[arr.length-3].replace(/[' ']/g, '')
           arr[arr.length - 2] = reg1
@@ -219,7 +223,7 @@ function forLoop (input) {
         let lineFor1Step2 = lineFor1Step1.split('>=')
         if(lineFor1Step2[1].includes('.') === true) {
           let lineFor1Step3 = lineFor1Step2[1].split('.');
-          arr.push('..',lineFor1Step3[0], ').to_a.reverse');
+          arr.push('..',lineFor1Step3[0], '.length', ').to_a.reverse');
           let reg1 = arr[arr.length-2].replace(/[' ']/g, '')
           let reg2 = arr[arr.length-3].replace(/[' ']/g, '')
           arr[arr.length - 2] = reg1
@@ -237,7 +241,7 @@ function forLoop (input) {
         let lineFor1Step2 = lineFor1Step1.split('<')
         if(lineFor1Step2[1].includes('.') === true) {
           let lineFor1Step3 = lineFor1Step2[1].split('.');
-          arr.push('...',lineFor1Step3[0], ').to_a.reverse');
+          arr.push('...',lineFor1Step3[0], '.length', ').to_a.reverse');
           let reg1 = arr[arr.length-2].replace(/[' ']/g, '')
           let reg2 = arr[arr.length-3].replace(/[' ']/g, '')
           arr[arr.length - 2] = reg1
@@ -255,7 +259,7 @@ function forLoop (input) {
         let lineFor1Step2 = lineFor1Step1.split('>')
         if(lineFor1Step2[1].includes('.') === true) {
           let lineFor1Step3 = lineFor1Step2[1].split('.');
-          arr.push('...',lineFor1Step3[0], ').to_a.reverse');
+          arr.push('...',lineFor1Step3[0], '.length', ').to_a.reverse');
           let reg1 = arr[arr.length-2].replace(/[' ']/g, '')
           let reg2 = arr[arr.length-3].replace(/[' ']/g, '')
           arr[arr.length - 2] = reg1
@@ -273,7 +277,7 @@ function forLoop (input) {
     }
   }
 
-  let result = loop.join('\n').replace(/.length/g, '');
+  let result = loop.join('\n');
   return result;
 }
 
@@ -294,6 +298,24 @@ function changeClass (input) {
     if (convert[i].includes(') {') && !convert[i].includes('function') || convert[i].includes('){') && !convert[i].includes('function')) {
       convert[i] = '  function' + convert[i];
     }
+  }
+
+  for (let i = 0; i < convert.length; i++) {
+
+    if (convert[i].includes('new ')) {
+      let string = '';
+      convert[i] = convert[i].replace(/new+[' ']/g, '');
+      for (let j = 0; j < convert[i].length; j++) {
+        if (convert[i][j] === '(') {
+          string += '.new ' + convert[i][j];
+        } else {
+          string += convert[i][j];
+        }
+      }
+
+      convert[i] = string;
+    }
+
   }
 
   return convert.join('\n');

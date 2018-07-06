@@ -36,7 +36,14 @@ export default class Main extends Component {
     this.setState({
       value: sessionStorage.getItem('language')
     });
-    userStore.changeMainPage();
+    let token = localStorage.getItem('token')
+    if(token) {
+      userStore.logIn()
+      this.props.history.push('/main/profile')
+    } else {
+      userStore.wantLogin()
+      userStore.resetAll()
+    }
   }
 
   handleOpenModal = () => {
