@@ -1,0 +1,773 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web');
+@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville:700');
+@import url('https://fonts.googleapis.com/css?family=Do+Hyeon');
+@import url('https://fonts.googleapis.com/css?family=Kanit');
+
+/* home page */
+
+.homeContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 650px;
+  flex-direction: column;
+}
+
+.homeImage {
+  width: 230px;
+  height: 40px;
+  margin-bottom: 30px;
+}
+
+.homePicture {
+  width: 70%;
+  height: auto;
+  margin-bottom: 30px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(230, 151, 31);
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.startedGuest {
+  border-style: solid;
+  border-width: 2px;
+  border-color: transparent;
+  width: 165px;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  background-color: rgb(250, 140, 26);
+  margin-bottom: 30px;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.startedGuest:hover {
+  color: rgb(250, 140, 26);
+  background-color: white;
+  border-color: rgb(250, 140, 26);
+}
+
+.startedUser {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.itemStarted {
+  border-style: solid;
+  border-width: 2px;
+  border-color: transparent;
+  width: 80px;
+  padding: 8px;
+  border-radius: 10px;
+  color: white;
+  background-color: rgb(250, 140, 26);
+  text-align: center;
+  margin-left: 50px;
+  margin-right: 50px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.itemStarted:hover {
+  border-color: rgb(250, 140, 26);
+  color: rgb(250, 140, 26);
+  background-color: white;
+}
+
+@media only screen and (min-width: 500px) {
+  .homeImage {
+    width: 250px;
+    height: 50px;
+    margin-bottom: 20px;
+  }
+
+  .homePicture { 
+    width: 35%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .homeContainer {
+    height: 650px;
+  }
+
+  .startedGuest {
+    margin-bottom: 20px;
+    width: 148px;
+    font-size: 15px;
+  }
+
+  .itemStarted {
+    font-size: 15px;
+  }
+}
+
+/* Main Page */
+
+.boxSnippet {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  margin-bottom: 13px;
+}
+
+.leftBox {
+  width: 5%;
+  margin-top: 10vr;
+}
+
+.midBox {
+  width: 2%;
+  border-style: solid;
+  border-width: 1vr;
+  border-color: transparent;
+}
+
+.smallBoxLeft {
+  width: 48%;
+  height: 528px;
+  display: block;
+  counter-reset: my-sec-counter;
+}
+
+.smallBoxRight {
+  width: 49%;
+  height: 50px;
+  background-color: black;
+}
+
+.bottomBox {
+  width: 98.5%;
+  margin: 10px;
+  min-height: 150vr;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+}
+
+.forInput {
+  margin-left: 10px;
+  width: 100%;
+  font-family: 'Courier', Courier, monospace;
+}
+
+.forOutput {
+  width: 100%;
+  font-family: 'Courier', Courier, monospace;
+}
+
+.footerPosition {
+  position: static;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.footer {
+  border-style: solid;
+  border-width: 0px;
+  background: linear-gradient(to bottom, rgb(230, 151, 31) 0%, rgb(250, 140, 26) 50%);
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+@media only screen and (min-width: 500px) {
+  .footer {
+    margin-top: -5px;
+    height: 40px;
+  }
+}
+
+/* Login and Signup Form */
+
+.loginForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 610px;
+  flex-direction: column;
+}
+
+.insideLoginForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.inputItem {
+  margin-bottom: 15px;
+  padding: 10px;
+  width: 200px;
+}
+
+.inputItemRegister {
+  padding: 10px;
+  width: 200px;
+}
+
+.buttonPress {
+  border-style: solid;
+  border-width: 2px;
+  border-color: transparent;
+  width: 225px;
+  padding: 8px;
+  border-radius: 10px;
+  color: white;
+  background-color: rgb(250, 140, 26);
+  text-align: center;
+  margin-left: 50px;
+  margin-right: 50px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: bold;
+}
+
+.buttonPress:hover {
+  border-color: rgb(250, 140, 26);
+  color: rgb(250, 140, 26);
+  background-color: white;
+}
+
+.buttonItem {
+  padding-bottom: 50px;
+}
+
+.signUpParrent {
+  font-size: 14px;
+}
+
+.signUpChild {
+  text-decoration: none;
+  font-size: 14px;
+  color: rgb(48, 72, 88);
+}
+
+.signUpChild:hover {
+  color: rgb(108, 163, 160);
+}
+
+.imageFb {
+  width: 41px;
+  height: 41px;
+  margin-right: 25px;
+  cursor: pointer;
+}
+
+.imageFb:hover {
+  border-style: solid;
+  border-color: transparent;
+  border-width: 0px;
+  border-radius: 20px;
+  background-color: darkgray;
+}
+
+.imageGg {
+  cursor: pointer;
+  margin-left: 25px;
+  margin-top: 3px;
+  width: 35px;
+  height: 35px;
+}
+
+.imageGg:hover {
+  border-style: solid;
+  border-color: transparent;
+  border-width: 0px;
+  border-radius: 20px;
+  background-color: darkgray;
+}
+
+.line {
+  border-style: solid;
+  border-width: 3px;
+  border-top-color: rgb(250, 140, 26);
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  width: 222px;
+}
+
+.errorLogin {
+  color: red;
+}
+
+@media only screen and (min-width: 500px) {
+  .loginForm {
+    height: 590px;
+  }
+}
+
+/* Profile Page */
+
+.container {
+  margin-top: -10px;
+  height: 400px;
+  background: linear-gradient(rgb(117, 112, 102) 50%, white 50%);
+}
+
+.profile {
+  height: 300px;
+  text-align: center;
+}
+
+.name {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 50px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-weight: bold;
+  color: white;
+}
+
+.username {
+  font-family: 'Roboto Mono', monospace;
+  color: darkslategray;
+  margin-bottom: 20px;
+  color: white;
+}
+
+img {
+  width: 160px;
+  height: 160px;
+}
+
+.histContent {
+  width: 95%;
+  min-height: 335px;
+}
+
+.history {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 318px;
+}
+
+.histories {
+  padding: 15px;
+  margin-bottom: 10px;
+  border-style: solid;
+  border-width: 0px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.histories:hover {
+  background-color: darkgray;
+}
+
+.imgHor {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 20px;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.historyListTitle {
+  margin-top: 15px;
+  margin-left: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.historyListLeft {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 25px;
+}
+
+.listHistory {
+  width: 100%;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+@media only screen and (min-width: 500px) {
+  .histContent {
+    width: 50%;
+    min-height: 290px;
+  }
+}
+
+/* Main Detail Page */
+
+.topBar {
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+}
+
+.topBarContent {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: -15px;
+}
+
+.topBarLeft {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: -15px;
+}
+
+.buttonToConvert {
+  margin-right: 20px;
+  display: block;
+  cursor: pointer;
+  background-color: rgb(250, 140, 26);
+  color: white;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  border-color: transparent;
+  padding: 5px;
+  font-size: 18px;
+}
+
+.buttonToConvert:hover {
+  background-color: white;
+  color: rgb(250, 140, 26);
+  border-color: rgb(250, 140, 26);
+}
+
+.historyName {
+  display: flex;
+  align-items: center;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 18px;
+}
+
+.lineForMain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.lineInside {
+  width: 98%;
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgb(250, 140, 26);
+  margin-bottom: 5px;
+}
+
+.selectOption {
+  align-self: center;
+  margin-right: 10px;
+  font-weight: bold;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 17px;
+}
+
+.selectOption2 {
+  align-self: center;
+  margin-right: -200px;
+}
+
+.selectButton {
+  display: block;
+  cursor: pointer;
+  background-color: rgb(250, 140, 26);
+  color: white;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  border-color: transparent;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.leftBar {
+  display: flex;
+  flex-direction: row;
+  margin-top: 15px;
+}
+
+.rightBar {
+  display: flex;
+  flex-direction: row;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+@media only screen and (min-width: 1000px) {
+  .topBar {
+    flex-direction: row;
+    margin-left: 15px;
+    justify-content: space-between;
+  }
+
+  .topBarLeft {
+    margin-bottom: 0px;
+  }
+
+  .topBarContent {
+    margin-left: 15px;
+    justify-content: center;
+    margin-bottom: 0px;
+  }
+
+  .leftBar {
+    margin-top: 0px;
+  }
+
+  .rightBar {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  .buttonToConvert {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (min-width: 1300px) {
+  .buttonToConvert {
+    font-size: 17px;
+  }
+}
+
+/* Modal */
+
+.docContainer {
+  margin-left: 15px;
+  overflow-y: scroll;
+  max-height: 80%;
+}
+
+.docItem {
+  margin-bottom: 15px;
+}
+
+.closeButton {
+  cursor: pointer;
+  margin-top: 15px;
+  margin-left: 15px;
+}
+
+.closeButton:hover {
+  color: darkslategray;
+}
+
+.createTitle {
+  margin-bottom: 15px;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 25px;
+  display: flex;
+  margin-top: 15px;
+  justify-content: center;
+}
+
+.createForm {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.inputForm {
+  height: 25px;
+  padding: 5px;
+  margin-bottom: 15px;
+}
+
+.formButton {
+  margin-right: 20px;
+  display: block;
+  cursor: pointer;
+  background-color: rgb(250, 140, 26);
+  color: white;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  border-color: transparent;
+  padding: 5px;
+  width: 70px;
+  font-size: 17px;
+}
+
+.formButton:hover {
+  background-color: white;
+  color: rgb(250, 140, 26);
+  border-color: rgb(250, 140, 26);
+}
+
+.titleDoc {
+  margin-bottom: 15px;
+  font-weight: bold;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 18px;
+}
+
+.customModal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+}
+
+.customOverlay {
+  position: fixed;
+  z-index: 99;
+  top: 7.1%;
+  left: 49%;
+  right: 0;
+  bottom: 8.7%;
+  background-color: transparent;
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgb(250, 140, 26);
+}
+
+.textDoc {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  font-family: 'Titillium Web', sans-serif;
+  margin-left: 10px;
+}
+
+.textDoc:hover {
+  padding: 10px;
+  background-color: darkgray;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 0px;
+  border-radius: 10px;
+}
+
+.insideContainer {
+  border-style: solid;
+  border-width: 3px;
+  border-top-color: transparent;
+  border-bottom-color: rgb(250, 140, 26);
+  border-left-color: transparent;
+  border-right-color: transparent;
+  padding-bottom: 5px;
+  margin-top: 10px;
+}
+
+.titleModal {
+  margin-top: 10px;
+  margin-left: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.modalInput {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+}
+
+.overlayInput {
+  position: fixed;
+  z-index: 99;
+  top: 36%;
+  left: 15%;
+  right: 15%;
+  bottom: 36%;
+  background-color: transparent;
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgb(250, 140, 26);
+}
+
+.createContainer {
+  margin-left: 15px;
+  max-height: 80%;
+  margin-right: 15px;
+}
+
+@media only screen and (min-width: 500px) {
+  .customOverlay {
+    position: fixed;
+    top: 8%;
+    left: 50%;
+    right: 0;
+    bottom: 5.7%;
+    background-color: transparent;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(250, 140, 26);
+  }
+
+  .docContainer {
+    max-height: 85%;
+  }
+
+  .overlayInput {
+    top: 36%;
+    left: 25%;
+    right: 25%;
+    bottom: 36%;
+  }
+
+  .createTitle {
+    margin-bottom: 15px;
+    font-size: 25px;
+  }
+}
+
+@media only screen and (min-width: 1000px) {  
+  .overlayInput {
+    top: 25%;
+    left: 15%;
+    right: 15%;
+    bottom: 36%;
+  }
+}
+
+@media only screen and (min-width: 1300px) {  
+  .overlayInput {
+    top: 30%;
+    left: 25%;
+    right: 25%;
+    bottom: 40%;
+  }
+}
+
+.customAlert {
+  color: rgb(250, 140, 26);
+}
+
+.inputPart {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  word-wrap: break-word;
+  max-width: 230px;
+}
+
+.desc {
+  color: darkslategrey;
+}
+
+.profic {
+  background-color: white;
+  padding: 20px;
+  border-radius: 100px;
+}
